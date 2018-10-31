@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>tab-1 -- show/hide </title>
+	<style>
+		body{ 
+			font-family: '맑은 고딕', 'Malgun Gothic', sans-serif ; 
+			font-size: 1;
+			line-height: 1.2;
+		}
+
+		* { margin: 0; padding: 0; }
+		ul, li{ list-style: none }
+		div, dl, dt, dd, ul, li,  a, input { box-sizing: border-box;}
+		
+		.comp-search{
+			width: 400px;
+			margin: 0 auto;
+		}
+		.comp-search input{ 
+			width: 100%;
+			padding: 5px;
+			border: 1px solid #ddd; 
+		}
+		/* show / hide */
+		.comp-search[data-display="true"]{ border: 1px solid red; }
+		.comp-search[data-display="false"] .comp-tabs{ display: none; }
+		.comp-search[data-display="true"] .comp-tabs{ display: block; }
+
+		.comp-tabs{ 
+			width: 400px; 
+			margin: 0 auto; 
+			border: 1px solid #ddd;
+		}
+		.comp-tabs{}
+			.div-inner:after{ 
+				content: "";
+				display: table;
+				clear: both;
+			}
+
+	
+		.tabs:after{ 
+				content:"";
+				display:"table";
+				clear: both;
+\			 }
+			.tabs .tab-item{ 
+				float: left; 
+				display: inline-block; 
+				width: 33.33%;
+				padding: 10px;
+				text-align: center;
+			}
+
+		
+		.panels{ clear:both; border-top: 1px solid red; }
+		.panels .panel{ 
+			display: none;
+			padding: 10px;
+			min-height: 300px;
+		}
+
+		/*show/hide*/
+		
+		.comp-tabs--1[data-current="1"] .tab-item[data-idx="1"],
+		.comp-tabs--1[data-current="1"] .panel[data-idx="1"],
+		.comp-tabs--1[data-current="2"] .tab-item[data-idx="2"],
+		.comp-tabs--1[data-current="2"] .panel[data-idx="2"],
+		.comp-tabs--1[data-current="3"] .tab-item[data-idx="3"],
+		.comp-tabs--1[data-current="3"] .panel[data-idx="3"]{ display: block; }
+
+		.comp-tabs--1[data-current="1"] .tab-item[data-idx="1"],
+		.comp-tabs--1[data-current="2"] .tab-item[data-idx="2"],
+		.comp-tabs--1[data-current="3"] .tab-item[data-idx="3"]{ 
+			background-color: #000; 
+			color: #fff; 
+		}
+		
+		.controls{ 
+			text-align : right; 
+			margin-right: 2px;
+			margin-bottom: 2px;
+		}
+		.btn{ 
+			border: 1px solid #ccc; 
+			padding: 5px 10px; 
+			cursor: pointer;
+		}
+		
+
+	</style>
+</head>
+<body>
+	<div id="compSearch" class="comp-search" data-display="false">
+		<!--form -->
+		<form name="" action="">
+			<div class="frm-search">
+				<input type="text"  name="" value=""  onfocus="showSearchOpen(this);" placeholder="검색어입력" />
+			</div>
+
+		</form>
+		<!-- comp-tab--basic --->
+		<div id="compTabs1" class="comp-tabs comp-tabs--1" data-current="1">
+			<div class="div-inner">
+
+				<div class="tabs">
+					<ul>
+						<li class="tab-item" data-idx="1" onclick="showtab(this);" tabindex="0"><span>Tab--1</span></li>
+						<li class="tab-item" data-idx="2" onclick="showtab(this);" tabindex="0"><span>Tab--2</span></li>
+						<li class="tab-item" data-idx="3" onclick="showtab(this);" tabindex="0"><span>Tab--3</span></li>
+					</ul>
+				</div>
+				
+				<div class="panels">
+					<div class="panel" data-idx="1">
+						panel--1
+					</div>
+					<div class="panel" data-idx="2">
+						panel--2
+					</div>
+					<div class="panel" data-idx="3">
+						panel--3
+					</div>
+				</div>
+
+				<div class="controls">
+					<button class="btn btn-close" id="" onclick="showSearchClose(this);"><span>x</span></button>
+				</div>
+			
+			</div>
+		</div>
+		<!-- //comp-tab--basic --->
+
+	</div>
+	<script>
+		var compSearch = document.getElementById("compSearch");
+		var compTabs1 = document.getElementById("compTabs1");
+
+		function show(){
+			compSearch.setAttribute("data-display", "true");
+		}
+
+		function hide(){
+			compSearch.setAttribute("data-display", "false");
+		}
+
+		function showSearchOpen(el){
+			var h = compSearch.getAttribute("data-display");
+
+			console.log(h);
+
+			if ( h == "false") {
+
+				show();
+				
+			}
+
+			return false
+
+		}
+
+		function showSearchClose(el){
+
+			hide();
+		}
+
+		function showtab(el){
+	
+			var elidx = el.getAttribute("data-idx");
+
+			console.log(elidx);
+		
+			compTabs1.setAttribute("data-current", elidx);
+
+		}
+	</script>
+</body>
+</html>
