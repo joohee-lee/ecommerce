@@ -126,9 +126,8 @@
 		var elItems = document.getElementsByClassName("item");
 		var elItemsCount = elItems.length;
 
-
-		console.log(  elBanners.getAttribute("data-current") );
-		//function() event 
+		//console.log(  elBanners.getAttribute("data-current") );
+		
 		var next = document.getElementById("btnNext");
 		var play = document.getElementById("btnPlay");
 		var stop = document.getElementById("btnStop");
@@ -136,11 +135,10 @@
 		//start current value 
 		var current = 1;
 
-		console.log("elItems: " + elItems);
-		console.log("elItemsCount: " + elItemsCount);
+		//console.log("elItems: " + elItems);
+		//console.log("elItemsCount: " + elItemsCount);
 
 		//autorolling - time
-
 		var time = 2000;
 
 		//setCurrent
@@ -174,7 +172,6 @@
 		var autorolling = setInterval( next.onclick, time);
 
 		//play
-
 		play.onclick = function(){
 
 			var autorolling = setInterval( next.onclick, time);
