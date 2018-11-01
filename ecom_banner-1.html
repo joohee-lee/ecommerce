@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>tab-1 -- show/hide </title>
+	<style>
+		body{ 
+			font-family: '맑은 고딕', 'Malgun Gothic', sans-serif ; 
+			font-size: 1;
+			line-height: 1.2;
+		}
+
+		body, div, p, ul, ol, p, li, dd, dt { margin: 0; padding: 0; }
+		ul li, ol li{ list-style: none }
+		div, dl, dt, dd, ul, li,  a, input { box-sizing: border-box;}
+
+
+		.comp-banner{
+			width: 320px;
+			height: 600px;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		.comp-inner{
+			padding: 20px 0 ;
+			border: 1px solid #ddd;
+		}
+		.comp-inner:after{
+			content: '';
+			display: block;
+			clear: both;
+		}
+
+		/*paging*/
+		.paging .num{
+			position: relative;
+			display: inline-block;
+			width: 12px;
+			height: 12px;
+		}
+
+		.paging .num:before{
+			position: absolute;
+			left: 0;
+			top: 0;
+			content: "";
+			display: inline-block;
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			background-color: #ddd;
+		}
+		
+		.paging .num em{ 
+			background: transparent none !important;
+			border: none !important;
+			display: block !important;
+			height: 1px !important;
+			overflow: hidden !important;
+			padding: 0 !important;
+			position: absolute !important;
+			top: -999999em !important;
+			width: 1px !important;
+		}
+
+		
+		/* script */
+		.comp-banner .list .item{ display: none; }
+		.comp-banner[data-current="1"] .item[data-idx="1"],
+		.comp-banner[data-current="2"] .item[data-idx="2"],
+		.comp-banner[data-current="3"] .item[data-idx="3"]{display: block;}
+
+		.comp-banner[data-current="1"] .paging .num[data-num="1"]:before,
+		.comp-banner[data-current="2"] .paging .num[data-num="2"]:before,
+		.comp-banner[data-current="3"] .paging .num[data-num="3"]:before{background-color: red;}
+	</style>
+</head>
+<body>
+	<!-- 
+		
+		title. banner rolling 
+		show/hide - data-* attribute usde : data-current / data-idx / data-num 
+		function. next
+		function. autorolling - setInterval / stop - clearInterval
+		animation. x
+
+	-->
+	<div  id="compBanner" class="comp-banner comp-banner-goods" data-current="1">
+		<div class="comp-inner">
+			
+			<!-- image / list -->
+			<ul class="list">
+				<li class="item" data-idx="1"><a href="#"><img src="http://img.shinsegaetvshopping.com/banner/129/1013129_20181101111002.jpg" alt=""></a></li>
+				<li class="item" data-idx="2"><a href="#"><img src="http://img.shinsegaetvshopping.com/banner/130/1013130_20181029170816.jpg" alt=""></a></li>
+				<li class="item" data-idx="3"><a href="#"><img src="http://img.shinsegaetvshopping.com/banner/688/1012688_20181017125546.jpg" alt=""></a></li>
+			</ul>
+			
+			<!-- paging -->
+			<div class="paging">
+				<span class="num" data-num="1" onclick="setCurrent(1);" tabindex="0"><em>1</em></span>
+				<span class="num" data-num="2" onclick="setCurrent(2);" tabindex="0"><em>2</em></span>
+				<span class="num" data-num="3" onclick="setCurrent(3);" tabindex="0"><em>3</em></span>
+			</div>
+			
+			<!-- play/stop -->
+			<div class="control">
+				<span class="next" style="display: none;">
+					<button id="btnNext" type="button" class="btn-next">next</button>
+				</span>
+				<span class="play">
+					<button id="btnPlay" type="button" class="btn-play">play</button>
+				</span>
+				<span class="stop">
+					<button id="btnStop" type="button" class="btn-stop">stop</button>
+				</span>
+			</div>
+		
+		</div>
+	</div>
+
+	
+	<script>
+		//setting
+		var elBanners = document.getElementById("compBanner");
+		var elItems = document.getElementsByClassName("item");
+		var elItemsCount = elItems.length;
+
+
+		console.log(  elBanners.getAttribute("data-current") );
+		//function() event 
+		var next = document.getElementById("btnNext");
+		var play = document.getElementById("btnPlay");
+		var stop = document.getElementById("btnStop");
+
+		//start current value 
+		var current = 1;
+
+		console.log("elItems: " + elItems);
+		console.log("elItemsCount: " + elItemsCount);
+
+		//autorolling - time
+
+		var time = 2000;
+
+		//setCurrent
+		function setCurrent(idx){
+
+			var current = idx ;
+
+			elBanners.setAttribute("data-current", current);
+
+			return false; 
+
+		}
+
+		//next 
+		next.onclick = function(){
+
+			current = current +1;
+
+			if( current > elItemsCount ){
+
+				current = 1;
+			}
+
+			setCurrent(current);
+
+			return false;
+
+		}
+		
+		//autorolling
+		var autorolling = setInterval( next.onclick, time);
+
+		//play
+
+		play.onclick = function(){
+
+			var autorolling = setInterval( next.onclick, time);
+
+			return false ;
+
+		}
+
+		//stop 
+		stop.onclick = function(){
+
+			clearInterval(autorolling);
+			
+			return false;
+
+		}
+		
+	</script>
+</body>
+</html>
