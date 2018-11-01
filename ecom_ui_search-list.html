@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>tab-1 -- show/hide </title>
+	<style>
+		body{ 
+			font-family: '맑은 고딕', 'Malgun Gothic', sans-serif ; 
+			font-size: 1;
+			line-height: 1.2;
+		}
+
+		body, div, p, ul, ol, p, li, dd, dt { margin: 0; padding: 0; }
+		ul li, ol li{ list-style: none }
+		div, dl, dt, dd, ul, li,  a, input { box-sizing: border-box;}
+		
+		.comp-search{
+			width: 400px;
+			margin: 0 auto;
+		}
+		.comp-search input{ 
+			width: 100%;
+			padding: 5px;
+			border: 1px solid #ddd; 
+		}
+	
+
+		.comp-tabs{ 
+			margin: 0 auto; 
+			border: 1px solid #ddd;
+		}
+		.comp-tabs{}
+			.div-inner:after{ 
+				content: "";
+				display: table;
+				clear: both;
+			}
+
+	
+		.tabs:after{ 
+				content:"";
+				display:"table";
+				clear: both;
+\			 }
+			.tabs .tab-item{ 
+				float: left; 
+				display: inline-block; 
+				width: 33.33%;
+				padding: 10px;
+				text-align: center;
+			}
+
+		
+		.panels{ clear:both; border-top: 1px solid red; }
+		.panels .panel{ 
+			display: none;
+			min-height: 300px;
+		}
+
+		/*show/hide*/
+		
+		.comp-tabs--1[data-current="1"] .tab-item[data-idx="1"],
+		.comp-tabs--1[data-current="1"] .panel[data-idx="1"],
+		.comp-tabs--1[data-current="2"] .tab-item[data-idx="2"],
+		.comp-tabs--1[data-current="2"] .panel[data-idx="2"],
+		.comp-tabs--1[data-current="3"] .tab-item[data-idx="3"],
+		.comp-tabs--1[data-current="3"] .panel[data-idx="3"]{ display: block; }
+
+		.comp-tabs--1[data-current="1"] .tab-item[data-idx="1"],
+		.comp-tabs--1[data-current="2"] .tab-item[data-idx="2"],
+		.comp-tabs--1[data-current="3"] .tab-item[data-idx="3"]{ 
+			background-color: #000; 
+			color: #fff; 
+		}
+		
+		.controls{ 
+			text-align : right; 
+			margin-right: 2px;
+			margin-bottom: 2px;
+		}
+		.btn{ 
+			border: 1px solid #ccc; 
+			padding: 5px 10px; 
+			cursor: pointer;
+		}
+		
+		.ol-search-list{}
+		.ol-search-list li{ position: relative; }
+		.ol-search-list li:before{ 	
+			position: absolute;
+			left: 5px;
+			top: 5px;
+			display: inline-block;
+			width: 15px;
+			height: 15px;
+			color: #333;
+		}
+
+		.ol-search-list li[data-rank="1"]:before{
+			content: '1.';
+		}
+		.ol-search-list li[data-rank="2"]:before{
+			content: '2.';
+		}
+		
+		.ol-search-list li[data-rank="3"]:before{
+			content: '3.';
+		}
+		.ol-search-list li[data-rank="4"]:before{
+			content: '4.';
+		}
+		.ol-search-list li[data-rank="5"]:before{
+			content: '5.';
+		}
+		.ol-search-list li[data-rank="6"]:before{
+			content: '6.';
+		}
+
+		.ol-search-list li a{
+		    display: block;
+		    cursor: pointer;
+		    padding-left: 20px;
+		    padding-top: 5px;
+		    box-sizing: border-box;
+		    color: #333;
+		    text-decoration: none;
+		}
+
+		.ol-search-list li a:hover{ 
+			background-color: #ccc;
+		}
+		
+		/* form */
+		.frm-search { position: relative; }
+		.frm-search .btn-submit{ 
+			position: absolute; 
+			right: 3px;
+			top: 3px;
+		}
+
+		/* show / hide */
+		.comp-search[data-display="true"]{ border: 1px solid red; }
+		.comp-search[data-display="true"] .btn-submit{
+			background-color: red;
+			color: #fff;
+		}
+		.comp-search[data-display="false"] .comp-tabs{ display: none; }
+		.comp-search[data-display="true"] .comp-tabs{ display: block; }
+
+	</style>
+</head>
+<body>
+	<div id="compSearch" class="comp-search" data-display="false">
+		<!--form -->
+		<form name="" action="">
+			<div class="frm-search">
+				<input type="text" id="ipt-search" name="" value=""  onfocus="showSearchOpen(this);" placeholder="검색어입력" />
+				<button  type="submit" class="btn-submit">검색</button>
+			</div>
+
+		</form>
+		<!-- comp-tab--basic --->
+		<div id="compTabs1" class="comp-tabs comp-tabs--1" data-current="1">
+			<div class="div-inner">
+
+				<div class="tabs">
+					<ul>
+						<li class="tab-item" data-idx="1" onclick="showtab(this);" tabindex="0"><span>Tab--1</span></li>
+						<li class="tab-item" data-idx="2" onclick="showtab(this);" tabindex="0"><span>Tab--2</span></li>
+						<li class="tab-item" data-idx="3" onclick="showtab(this);" tabindex="0"><span>Tab--3</span></li>
+					</ul>
+				</div>
+				
+				<div class="panels">
+					<div class="panel" data-idx="1">
+						<!-- searchwords-->
+						<ol class="ol-search-list">
+							<li class="item" data-rank="1" data-icon=""><a href="#" data-word="검색어 1" onclick="searchWord(this);">검색어 1</a></li>
+							<li class="item" data-rank="2" data-icon=""><a href="#" data-word="검색어 2" onclick="searchWord(this);">검색어 2</a></li>
+							<li class="item" data-rank="3" data-icon=""><a href="#" data-word="검색어 3" onclick="searchWord(this);">검색어 3</a></li>
+							<li class="item" data-rank="4" data-icon=""><a href="#" data-word="검색어 4" onclick="searchWord(this);">검색어 4</a></li>
+							<li class="item" data-rank="5" data-icon=""><a href="#" data-word="검색어 5" onclick="searchWord(this);">검색어 5</a></li>
+							<li class="item" data-rank="6" data-icon=""><a href="#" data-word="검색어 6" onclick="searchWord(this);">검색어 6</a></li>
+						</ol>
+					</div>
+					<div class="panel" data-idx="2">
+						panel--2
+					</div>
+					<div class="panel" data-idx="3">
+						panel--3
+					</div>
+				</div>
+
+				<div class="controls">
+					<button class="btn btn-close" id="" onclick="showSearchClose(this);"><span>x</span></button>
+				</div>
+			
+			</div>
+		</div>
+		<!-- //comp-tab--basic --->
+
+	</div>
+	<script>
+		var compSearch = document.getElementById("compSearch");
+		var compTabs1 = document.getElementById("compTabs1");
+
+		function show(){
+			compSearch.setAttribute("data-display", "true");
+		}
+
+		function hide(){
+			compSearch.setAttribute("data-display", "false");
+		}
+
+		function showSearchOpen(el){
+			var h = compSearch.getAttribute("data-display");
+
+			console.log(h);
+
+			if ( h == "false") {
+
+				show();
+				
+			}
+
+			return false
+
+		}
+
+		function showSearchClose(el){
+
+			hide();
+		}
+
+		// tab / panel - show / hide
+		function showtab(el){
+	
+			var elidx = el.getAttribute("data-idx");
+
+			console.log(elidx);
+		
+			compTabs1.setAttribute("data-current", elidx);
+
+		}
+
+		//검색어 추가 
+		function searchWord(el){
+
+			var elIptSch = document.getElementById("ipt-search");
+			var elword = el.getAttribute("data-word");
+
+			elIptSch.setAttribute("value", elword);
+
+			// 닫기
+			hide();
+		}
+	</script>
+</body>
+</html>
