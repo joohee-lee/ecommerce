@@ -98,7 +98,7 @@
 	<div  id="compBanner--A" class="comp-banner comp-banner-goods" data-current="1">
 		<div class="comp-inner">
 			
-			<!-- image / list -->
+			<!-- image / list --> 
 			<ul class="list">
 				<li class="item" data-idx="1">
 					<a href="#">
@@ -126,9 +126,11 @@
 			
 			<!-- play/stop -->
 			<div class="control">
+				<!--
 				<span class="next">
 					<button id="play--A" type="button" class="btn-next" onclick="fn_next('compBanner--A'); return false;">next</button>
 				</span>
+				-->
 				<span class="play">
 					<button  type="button" class="btn-play" onclick="fn_playA();">play</button>
 				</span>
@@ -140,6 +142,7 @@
 		</div>
 	</div>
 	<script>
+		
 		var autorollingA = setInterval(function() { fn_next('compBanner--A') }, 1000);
 
 		function fn_playA(){
@@ -155,10 +158,12 @@
 
 			return false;
 		}
+
+
 	</script>
 
 
-	<h2>2. comBanner--B /  2초 간격 롤링</h2>
+	<h2>2. comBanner--B /  3초 간격 롤링</h2>
 	<div  id="compBanner--B" class="comp-banner comp-banner-goods" data-current="1">
 		<div class="comp-inner">
 			
@@ -190,9 +195,11 @@
 			
 			<!-- play/stop -->
 			<div class="control">
+				<!--
 				<span class="next">
 					<button type="button" class="btn-next" onclick="fn_next('compBanner--B'); return false;">next</button>
 				</span>
+				-->
 				<span class="play">
 					<button type="button" class="btn-play" onclick="fn_playB();">play</button>
 				</span>
@@ -204,11 +211,11 @@
 		</div>
 	</div>
 	<script>
-		var autorollingB = setInterval(function() { fn_next('compBanner--B') }, 2000);
+		var autorollingB = setInterval(function() { fn_next('compBanner--B') }, 3000);
 		
 		function fn_playB(){
 			
-			autorollingB = setInterval(function() { fn_next('compBanner--B') }, 2000) ; 
+			autorollingB = setInterval(function() { fn_next('compBanner--B') }, 3000) ; 
 			
 			return false;
 		}
@@ -228,13 +235,14 @@
 
 			var el = document.getElementById(id);
 			var current = Number(el.getAttribute('data-current')); // 현재 data-current value
+			//var rolling = el.getAttribute('data-rolling');
 			var elItems = el.getElementsByClassName("item");
 			var elItemsCount = elItems.length;
 
 			current = Number(current +1);
 
 			console.log( current );
-
+		
 			if( current > elItemsCount){
 				
 				current = 1;
