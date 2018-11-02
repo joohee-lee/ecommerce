@@ -94,7 +94,7 @@
 		animation. x
 
 	-->
-	<h2>1. comBanner--A</h2>
+	<h2>1. comBanner--A / 1초 간격 롤링</h2>
 	<div  id="compBanner--A" class="comp-banner comp-banner-goods" data-current="1">
 		<div class="comp-inner">
 			
@@ -130,18 +130,35 @@
 					<button id="play--A" type="button" class="btn-next" onclick="fn_next('compBanner--A'); return false;">next</button>
 				</span>
 				<span class="play">
-					<button  type="button" class="btn-play" onclick="">play</button>
+					<button  type="button" class="btn-play" onclick="fn_playA();">play</button>
 				</span>
 				<span class="stop">
-					<button  type="button" id="stop--A" class="btn-stop" onclick="">stop</button>
+					<button  type="button" id="stop--A" class="btn-stop" onclick="fn_stopA();">stop</button>
 				</span>
 			</div>
 		
 		</div>
 	</div>
+	<script>
+		var autorollingA = setInterval(function() { fn_next('compBanner--A') }, 1000);
+
+		function fn_playA(){
+			
+			autorollingB = setInterval(function() { fn_next('compBanner--A') }, 1000) ; 
+			
+			return false;
+		}
+
+		function fn_stopA(){
+
+			clearInterval(autorollingA);
+
+			return false;
+		}
+	</script>
 
 
-	<h2>2. comBanner--B</h2>
+	<h2>2. comBanner--B /  2초 간격 롤링</h2>
 	<div  id="compBanner--B" class="comp-banner comp-banner-goods" data-current="1">
 		<div class="comp-inner">
 			
@@ -177,18 +194,36 @@
 					<button type="button" class="btn-next" onclick="fn_next('compBanner--B'); return false;">next</button>
 				</span>
 				<span class="play">
-					<button type="button" class="btn-play" onclick="">play</button>
+					<button type="button" class="btn-play" onclick="fn_playB();">play</button>
 				</span>
 				<span class="stop">
-					<button type="button" class="btn-stop" onclick="">stop</button>
+					<button type="button" class="btn-stop" onclick="fn_stopB()">stop</button>
 				</span>
 			</div>
 		
 		</div>
 	</div>
+	<script>
+		var autorollingB = setInterval(function() { fn_next('compBanner--B') }, 2000);
+		
+		function fn_playB(){
+			
+			autorollingB = setInterval(function() { fn_next('compBanner--B') }, 2000) ; 
+			
+			return false;
+		}
+
+		function fn_stopB(){
+
+			clearInterval(autorollingB);
+
+			return false;
+		}
+	</script>
 	
 	<script>
-	
+		
+		//next 
 		function fn_next(id){
 
 			var el = document.getElementById(id);
@@ -196,10 +231,7 @@
 			var elItems = el.getElementsByClassName("item");
 			var elItemsCount = elItems.length;
 
-			
-
 			current = Number(current +1);
-
 
 			console.log( current );
 
@@ -212,7 +244,7 @@
 
 		}
 
-	
+		//currnet value 
 		function setCurrent( id, idx){
 
 			var el = document.getElementById(id);
