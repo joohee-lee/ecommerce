@@ -83,6 +83,7 @@
 			zoom: 1;
 			width: 1000px;
 			transition-duration: 0.5s;
+			transition-timing-function: ease;
 
 		}
 		.list li{ 
@@ -124,10 +125,10 @@
 		show/hide - data-* attribute usde : data-current / data-idx / data-num 
 		function. next
 		function. autorolling - setInterval / stop - clearInterval
-		animation. x
+		animation. css / transition
 
 	-->
-	<div  id="compBanner" class="comp-banner comp-banner-goods" data-current="1" data-size="3">
+	<div  id="compBanner" class="comp-banner comp-banner-goods" data-current="1" data-size="3" onmouseover="fn_stop(); return false;" onmouseleave="fn_play(); return false" >
 		<div class="comp-inner">
 			
 			<!-- image / list -->
@@ -210,6 +211,9 @@
 		//next 
 		next.onclick = function(){
 
+			//clearinterval
+            clearInterval(autorolling);
+
 			current = current +1;
 
 			if( current > elItemsCount ){
@@ -219,7 +223,10 @@
 
 			setCurrent(current);
 
-			return false;
+			// 자동롤링
+            autorolling = setInterval(next.onclick, time);
+
+
 
 		}
 		
@@ -229,20 +236,33 @@
 		//play
 		play.onclick = function(){
 
-			var autorolling = setInterval( next.onclick, time);
-
-			return false ;
+			fn_play();
 
 		}
 
 		//stop 
 		stop.onclick = function(){
 
+			fn_stop();
+
+		}
+
+		function fn_stop(){
+
 			clearInterval(autorolling);
 			
 			return false;
 
 		}
+
+		function fn_play(){
+
+			autorolling = setInterval( next.onclick, time);
+
+			return false ;
+
+		}
+		
 	</script>
 </body>
 </html>
