@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>product-0</title>
+	<style>
+		body{ 
+			font-family: '맑은 고딕', 'Malgun Gothic', sans-serif ; 
+			font-size: 1;
+			line-height: 1.2;
+		}
+
+		body, div, p, ul, ol, p, li, dd, dt { margin: 0; padding: 0; }
+		ul li, ol li{ list-style: none }
+		div, dl, dt, dd, ul, li,  a, input { box-sizing: border-box;}
+
+		
+		.comp-card .item img{ width: 600px;  height: 600px;}
+		
+		
+		.comp-card { 
+			position: relative;
+			width: 800px;
+			margin: 0 auto;
+
+		 }
+
+		 .comp-card .comp-inner{
+		 	width: 600px;
+		 	margin: 0 auto;
+		 	overflow: hidden;
+		 }
+
+		 .comp-card .comp-inner:after{
+		 	content: '';
+		 	display: block;
+		 	clear: both;
+		 }
+
+		 .comp-card .list{
+		 	width: 20000px;
+		 }
+
+		 .comp-card .list:after{
+		 	content: '';
+		 	display: block;
+		 	clear: both;
+		 }
+
+		 .comp-card .list .item{
+		 	float: left;
+		 	width: 600px;
+		 }
+		
+
+		.nav-list {}
+		.nav-list-inner{
+
+			width: 600px;
+			overflow:  hidden;
+		}
+		.nav-list-inner:after{
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.nav-list .ul-nav-list{
+			zoom: 1;
+			width: 2000px;
+			transition-duration: 0.5s;
+		}
+	
+		.nav-list .ul-nav-list:after{
+			content: '';
+			display: block;
+			clear: both;
+		}
+
+		.nav-list .nav-item{
+		 	float: left;
+		 	width: 150px;
+		 	text-align: center;
+		 	cursor: pointer;
+		 }
+
+		.nav-list .nav-item img{
+			width: 136px;
+			height: 136px;
+			border: 2px solid #fff;
+		}
+	
+		
+		button {
+		    background: none;
+		    border: 0;
+		    color: inherit;
+		    /* cursor: default; */
+		    font: inherit;
+		    line-height: normal;
+		    overflow: visible;
+		    padding: 0;
+		    -webkit-appearance: button; /* for input */
+		    -webkit-user-select: none; /* for button */
+		       -moz-user-select: none;
+		        -ms-user-select: none;
+		}
+		
+		.sp-next{ position: absolute; right: 0; top: 300px;}
+		.btn-next{
+			display: block;
+			width: 30px;
+			height: 30px;
+			border: 4px solid #333;
+		    border-width: 4px 4px 0 0;
+		    transform: rotate(45deg);
+		    cursor: pointer;
+		}
+		
+		.sp-prev span{ position: absolute; left: 0; top: 300px;}
+		.btn-prev{
+			display: block;
+			width: 30px;
+			height: 30px;
+			border: 4px solid #333;
+		    border-width: 0 0 4px 4px;
+		    transform: rotate(45deg);
+		    cursor: pointer;
+		}
+		
+		.btn-next em, .btn-prev em{
+			background: transparent none !important;
+			border: none !important;
+			display: block !important;
+			height: 1px !important;
+			overflow: hidden !important;
+			padding: 0 !important;
+			position: absolute !important;
+			top: -999999em !important;
+			width: 1px !important;
+		}
+
+
+
+
+		 /* script */
+		 .comp-card .item{
+		 	display: none;
+		 }
+		 .comp-card[data-current="0"] .item[data-idx="0"],
+		 .comp-card[data-current="1"] .item[data-idx="1"],
+		 .comp-card[data-current="2"] .item[data-idx="2"],
+		 .comp-card[data-current="3"] .item[data-idx="3"],
+		 .comp-card[data-current="4"] .item[data-idx="4"],
+		 .comp-card[data-current="5"] .item[data-idx="5"],
+		 .comp-card[data-current="6"] .item[data-idx="6"],
+		 .comp-card[data-current="7"] .item[data-idx="7"],
+		 .comp-card[data-current="8"] .item[data-idx="8"],
+		 .comp-card[data-current="9"] .item[data-idx="9"],
+		 .comp-card[data-current="10"] .item[data-idx="10"]{
+		 	display: block;
+		 }
+		
+		
+		 .comp-card[data-current="0"] .nav-item[data-idx="0"] img,
+		 .comp-card[data-current="1"] .nav-item[data-idx="1"] img,
+		 .comp-card[data-current="2"] .nav-item[data-idx="2"] img,
+		 .comp-card[data-current="3"] .nav-item[data-idx="3"] img,
+		 .comp-card[data-current="4"] .nav-item[data-idx="4"] img,
+		 .comp-card[data-current="5"] .nav-item[data-idx="5"] img,
+		 .comp-card[data-current="6"] .nav-item[data-idx="6"] img,
+		 .comp-card[data-current="7"] .nav-item[data-idx="7"] img,
+		 .comp-card[data-current="8"] .nav-item[data-idx="8"] img,
+		 .comp-card[data-current="9"] .nav-item[data-idx="9"] img,
+		 .comp-card[data-current="10"] .nav-item[data-idx="10"] img{
+
+		 	border: 2px solid #000;
+		 	
+		 }
+
+
+		
+		
+		 
+	</style>
+		
+		
+</head>
+<body>
+	<!-- 
+		produt image 
+		ex. hmall / product / detail 
+		1. card type. 
+		2. prd img  1 ~ 10 개까지 등록 가능. 
+		3. prd thum 1 ~ 10 개까지 등록 가능. 
+		4. 메인 상품 - next / prev function add
+		5. data-* 으로 prd img control . 
+
+
+	
+
+	-->
+		<h2>ecommerce - prd - detail -- 0</h2>
+		<div id="comp-card-prd" class="comp-card" data-current="0"> 
+			<div class="comp-inner">
+				
+				<!-- prd img list -->
+				<div class="list">
+					<div class="item" data-idx="0"><img src="http://img.hfashionmall.com/images/upload/repo/originDir/p/DW/DWMS3KK63AP0_0W9_01.png" alt=""></div>
+					<div class="item" data-idx="1"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/DW/600x600/DWMS3KK63AP0_0W9_02.png" alt=""></div>
+					<div class="item" data-idx="2"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/DW/600x600/DWMS3KK63AP0_0W9_03.png" alt=""></div>
+					<div class="item" data-idx="3">
+						<img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/DW/600x600/DWMS3KK63AP0_0W9_06.png" alt="">
+					</div>
+				</div>
+				
+				<div class="control">
+					<span class="sp-prev">
+						<span class="btn-prev" onclick="fn_prev(); return false;" tabindex="0"><em>prev</em></span>
+					</span>
+					<span class="sp-next">
+						<span class="btn-next" onclick="fn_next(); return false;" tabindex="0"><em>next</em></span>
+					</span>
+				</div>
+				
+				<!-- prd thum list -->
+				<div  class="nav-list">
+					<div class="nav-list-inner">
+
+						<ul class="ul-nav-list">
+							<li class="nav-item" data-idx="0" onclick="fn_setCurrent('0');"><img src="http://img.hfashionmall.com/images/upload/./repo/targetDir/p/DW/178x178/DWMS3KK63AP0_0W9_01.png" alt=""></li>
+							<li class="nav-item" data-idx="1" onclick="fn_setCurrent('1');"><img src="http://img.hfashionmall.com/images/upload/./repo/targetDir/p/DW/178x178/DWMS3KK63AP0_0W9_02.png" alt=""></li>
+							<li class="nav-item" data-idx="2" onclick="fn_setCurrent('2');"><img src="http://img.hfashionmall.com/images/upload/./repo/targetDir/p/DW/178x178/DWMS3KK63AP0_0W9_03.png" alt=""></li>
+							<li class="nav-item" data-idx="3" onclick="fn_setCurrent('3');"><img src="http://img.hfashionmall.com/images/upload/./repo/targetDir/p/DW/178x178/DWMS3KK63AP0_0W9_05.png" alt=""></li>
+						</ul>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	
+	<script>
+		
+		//setting
+		var compCardPrd = document.getElementById("comp-card-prd");
+		var elItem = compCardPrd.getElementsByClassName("item");
+		var elItemCount = elItem.length;
+		var current = compCardPrd.getAttribute("data-current");
+
+		console.log("elItem - " + elItemCount);
+		console.log("current - " + current);
+
+
+		// current event 
+		function fn_setCurrent(idx){
+
+			current = idx;
+
+			compCardPrd.setAttribute("data-current", current);
+
+			return false;
+
+		}
+
+		//next event 
+		function fn_next(){
+
+			console.log("next");
+
+			current = Number(current + 1) ;
+
+			if (current >= elItemCount) {
+				
+				current = 0;
+			}
+
+			fn_setCurrent(current);
+
+		}
+
+		//prev event 
+		function fn_prev(){
+
+			console.log('prev');
+			console.log('current1 : ' + current);
+
+			current = Number(current-1);
+
+			console.log("current : " + current);
+
+			if(current <= 0){
+
+				current = 0;
+			}
+
+			console.log('current2 : ' + current);
+
+			fn_setCurrent(current);
+
+		}
+
+		
+	</script>
+</body>
+</html>
