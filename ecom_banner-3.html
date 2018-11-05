@@ -159,6 +159,9 @@
 			
 			<!-- play/stop -->
 			<div class="control">
+				<span class="prev">
+					<button id="btnPrev" type="button" class="btn-prev">prev</button>
+				</span>
 				<span class="next">
 					<button id="btnNext" type="button" class="btn-next">next</button>
 				</span>
@@ -181,13 +184,14 @@
 		var elItemsCount = elItems.length;
 
 		//console.log(  elBanners.getAttribute("data-current") );
-		
+		var prev = document.getElementById("btnPrev");
 		var next = document.getElementById("btnNext");
 		var play = document.getElementById("btnPlay");
 		var stop = document.getElementById("btnStop");
 
 		//start current value 
-		var current = 1;
+		//var current = 1;
+		var current = elBanners.getAttribute("data-current");
 
 		//console.log("elItems: " + elItems);
 		//console.log("elItemsCount: " + elItemsCount);
@@ -207,6 +211,26 @@
 			return false; 
 
 		}
+
+		//prev
+		prev.onclick = function(){
+
+			//clearinterval
+            clearInterval(autorolling);
+
+			current = current - 1;
+
+			if(current <= 0){
+
+				current = elItems.length;
+			}
+
+			setCurrent(current);
+
+			// 자동롤링
+            autorolling = setInterval(next.onclick, time);
+		}
+
 
 		//next 
 		next.onclick = function(){
