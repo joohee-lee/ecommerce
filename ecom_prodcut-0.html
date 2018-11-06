@@ -116,7 +116,7 @@
 		    cursor: pointer;
 		}
 		
-		.sp-prev span{ position: absolute; left: 0; top: 300px;}
+		.sp-prev{ position: absolute; left: 0; top: 300px;}
 		.btn-prev{
 			display: block;
 			width: 30px;
@@ -200,7 +200,7 @@
 
 	-->
 		<h2>ecommerce - prd - detail -- 0</h2>
-		<div id="comp-card-prd" class="comp-card" data-current="0"> 
+		<div id="comp-card-prd" class="comp-card" data-current="0" data-size="" data-page=""> 
 			<div class="comp-inner">
 				
 				<!-- prd img list -->
@@ -215,10 +215,10 @@
 				
 				<div class="control">
 					<span class="sp-prev">
-						<span class="btn-prev" onclick="fn_prev(); return false;" tabindex="0"><em>prev</em></span>
+						<button class="btn-prev" onclick="fn_prev(); return false;"><em>prev</em></button>
 					</span>
 					<span class="sp-next">
-						<span class="btn-next" onclick="fn_next(); return false;" tabindex="0"><em>next</em></span>
+						<button class="btn-next" onclick="fn_next(); return false;"><em>next</em></button>
 					</span>
 				</div>
 				
