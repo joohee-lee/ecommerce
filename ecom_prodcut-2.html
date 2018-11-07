@@ -558,7 +558,34 @@
 		function fn_setPageing(idx){
 
 			var current = idx ;
+		
+			switch(true){
 
+			
+				case  4 < current && current <= 8:
+
+				console.log("2");
+				elNav.setAttribute("data-page", 2);
+
+				break;
+
+				case  8 < current && current <= 12:
+
+				console.log("3");
+				elNav.setAttribute("data-page", 3);
+
+				break;
+
+				default: 
+
+				console.log("1");
+				elNav.setAttribute("data-page", 1);
+
+				break;
+
+			}
+			
+			/*
 			
 			if ( 0 < current && current <= 4){
 
@@ -575,7 +602,8 @@
 				console.log("3");
 				elNav.setAttribute("data-page", 3);
 			}
-		
+			
+			*/
 		}
 		
 	</script>
