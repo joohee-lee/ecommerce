@@ -399,13 +399,10 @@
 		var elNavItems = elNav.getElementsByClassName("nav-item");
 		var elNavItemsW = elNavItems[0].clientWidth;
 
-
 		var elNavCount = elNavItems.length; // 아이템 총 갯수  - data-size setting 
-		
 		var elcurrentViewItem = 4; // 기본으로 보여지는 아이템 갯수
 		
-		console.log(elNavCount);
-
+	
 		elNav.setAttribute("data-size", elNavCount);
 		elNav.setAttribute("data-current-end", elcurrentViewItem);
 
@@ -472,6 +469,7 @@
 
 		}
 
+		//썸네일 이미지 리스트 curren event 
 		function fn2_setCurrent(idx){
 
 			var current = idx;
