@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>product-2</title>
+	<style>
+		body{ 
+			font-family: '맑은 고딕', 'Malgun Gothic', sans-serif ; 
+			font-size: 1;
+			line-height: 1.2;
+		}
+
+		body, div, p, ul, ol, p, li, dd, dt { margin: 0; padding: 0; }
+		ul li, ol li{ list-style: none }
+		div, dl, dt, dd, ul, li,  a, input { box-sizing: border-box;}
+
+		
+		.comp-card .item img{ width: 600px;  height: 600px;}
+		
+		
+		.comp-card { 
+			position: relative;
+			width: 800px;
+			margin: 0 auto;
+		 }
+
+		 .comp-card .comp-inner{
+		 	width: 600px;
+		 	margin: 0 auto;
+		 	overflow: hidden;
+		 }
+
+		 .comp-card .comp-inner:after{
+		 	content: '';
+		 	display: block;
+		 	clear: both;
+		 }
+
+		 .comp-card .list{
+		 	width: 20000px;
+		 }
+
+		 .comp-card .list:after{
+		 	content: '';
+		 	display: block;
+		 	clear: both;
+		 }
+
+		 .comp-card .list .item{
+		 	float: left;
+		 	width: 600px;
+		 }
+		
+
+		.nav-list {}
+		.nav-list-inner{
+
+			width: 600px;
+			overflow:  hidden;
+		}
+		.nav-list-inner:after{
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.nav-list .ul-nav-list{
+			zoom: 1;
+			width: 2000px;
+			transition-duration: 0.5s;
+		}
+	
+		.nav-list .ul-nav-list:after{
+			content: '';
+			display: block;
+			clear: both;
+		}
+
+		.nav-list .nav-item{
+		 	float: left;
+		 	width: 150px;
+		 	text-align: center;
+		 }
+
+		.nav-list .nav-item img{
+			width: 136px;
+			height: 136px;
+			border: 2px solid #fff;
+		}
+
+		button {
+		    background: none;
+		    border: 0;
+		    color: inherit;
+		    /* cursor: default; */
+		    font: inherit;
+		    line-height: normal;
+		    overflow: visible;
+		    padding: 0;
+		    -webkit-appearance: button; /* for input */
+		    -webkit-user-select: none; /* for button */
+		       -moz-user-select: none;
+		        -ms-user-select: none;
+		}
+		
+		.comp-card .sp-next{ position: absolute; right: 0; top: 300px;}
+		.comp-card .btn-next{
+			display: block;
+			width: 30px;
+			height: 30px;
+			border: 4px solid #333;
+		    border-width: 4px 4px 0 0;
+		    transform: rotate(45deg);
+		    cursor: pointer;
+		}
+		
+		.comp-card .sp-prev{ position: absolute; left: 0; top: 300px;}
+		.comp-card .btn-prev{
+			display: block;
+			width: 30px;
+			height: 30px;
+			border: 4px solid #333;
+		    border-width: 0 0 4px 4px;
+		    transform: rotate(45deg);
+		    cursor: pointer;
+		}
+		
+		.btn-next em, .btn-prev em{
+			background: transparent none !important;
+			border: none !important;
+			display: block !important;
+			height: 1px !important;
+			overflow: hidden !important;
+			padding: 0 !important;
+			position: absolute !important;
+			top: -999999em !important;
+			width: 1px !important;
+		}
+
+
+
+
+
+		 /* script */
+		 .comp-card .item{
+		 	display: none;
+		 }
+		 
+		 .comp-card[data-current="1"] .item[data-idx="1"],
+		 .comp-card[data-current="2"] .item[data-idx="2"],
+		 .comp-card[data-current="3"] .item[data-idx="3"],
+		 .comp-card[data-current="4"] .item[data-idx="4"],
+		 .comp-card[data-current="5"] .item[data-idx="5"],
+		 .comp-card[data-current="6"] .item[data-idx="6"],
+		 .comp-card[data-current="7"] .item[data-idx="7"],
+		 .comp-card[data-current="8"] .item[data-idx="8"],
+		 .comp-card[data-current="9"] .item[data-idx="9"],
+		 .comp-card[data-current="10"] .item[data-idx="10"],
+		 .comp-card[data-current="11"] .item[data-idx="11"],
+		 .comp-card[data-current="12"] .item[data-idx="12"]{
+		 	display: block;
+		 }
+		
+		
+		
+		 .comp-card[data-current="1"] .nav-list[data-current="1"] .nav-item[data-idx="1"] img,
+		 .comp-card[data-current="2"] .nav-list[data-current="2"] .nav-item[data-idx="2"] img,
+		 .comp-card[data-current="3"] .nav-list[data-current="3"] .nav-item[data-idx="3"] img,
+		 .comp-card[data-current="4"] .nav-list[data-current="4"] .nav-item[data-idx="4"] img,
+		 .comp-card[data-current="5"] .nav-list[data-current="5"] .nav-item[data-idx="5"] img,
+		 .comp-card[data-current="6"] .nav-list[data-current="6"] .nav-item[data-idx="6"] img,
+		 .comp-card[data-current="7"] .nav-list[data-current="7"] .nav-item[data-idx="7"] img,
+		 .comp-card[data-current="8"] .nav-list[data-current="8"] .nav-item[data-idx="8"] img,
+		 .comp-card[data-current="9"] .nav-list[data-current="9"] .nav-item[data-idx="9"] img,
+		 .comp-card[data-current="10"] .nav-list[data-current="10"] .nav-item[data-idx="10"] img,
+		 .comp-card[data-current="11"] .nav-list[data-current="11"] .nav-item[data-idx="11"] img,
+		 .comp-card[data-current="12"] .nav-list[data-current="12"] .nav-item[data-idx="12"] img{
+
+		 	border: 2px solid #000;
+		 	
+		}
+
+
+		/* img / thum img move - data-current move */
+		
+		.nav-list[data-current="5"]  .ul-nav-list{
+			margin-left: -150px;
+		}
+		.nav-list[data-current="6"]  .ul-nav-list{
+			margin-left: -300px;
+		}
+
+		.nav-list[data-current="7"]  .ul-nav-list{
+			margin-left: -450px;
+		}
+
+		.nav-list[data-current="8"]  .ul-nav-list{
+			margin-left: -600px;
+		}
+
+		.nav-list[data-current="9"]  .ul-nav-list{
+			margin-left: -750px;
+		}
+
+		.nav-list[data-current="10"]  .ul-nav-list{
+			margin-left: -900px;
+		}
+
+		.nav-list[data-current="11"]  .ul-nav-list{
+			margin-left: -1050px;
+		}
+
+		.nav-list[data-current="12"]  .ul-nav-list{
+			margin-left: -1200px;
+		}
+		
+
+		/* thum list - move page */
+		.nav-list[data-page="2"][data-size="6"] .ul-nav-list{
+			margin-left: -300px;
+		}
+
+		.nav-list[data-page="2"][data-size="7"] .ul-nav-list{
+			margin-left: -450px;
+		}
+		
+		.nav-list[data-current="5"][data-page="2"][data-size="8"] .ul-nav-list,
+		.nav-list[data-current="5"][data-page="2"][data-size="9"] .ul-nav-list,
+		.nav-list[data-current="5"][data-page="2"][data-size="10"] .ul-nav-list,
+		.nav-list[data-current="5"][data-page="2"][data-size="11"] .ul-nav-list,
+		.nav-list[data-current="5"][data-page="2"][data-size="12"] .ul-nav-list
+		{
+			margin-left: -600px;
+		}
+
+		.nav-list[data-page="3"][data-size="9"] .ul-nav-list{
+			margin-left: -750px;
+		}
+		.nav-list[data-page="3"][data-size="10"] .ul-nav-list{
+			margin-left: -900px;
+		}
+		.nav-list[data-page="3"][data-size="11"] .ul-nav-list{
+			margin-left: -1050px;
+		}
+		.nav-list[data-page="3"][data-size="12"] .ul-nav-list{
+			margin-left: -1200px;
+		}
+
+		
+	</style>
+		
+		
+</head>
+<body>
+	<!-- 
+		produt image ( 2018.11.06)
+		ex. hmall / product / detail 
+		1. card type. 
+		2. prd img  1 ~ 12 개까지 등록 가능. 
+		3. prd thum 1 ~ 12 개까지 등록 가능. 
+		4. 메인 상품 - next / prev function add
+		5. data-* 으로 prd img control . 
+		6. css ani - transition duration 
+		7. thumnailpage move 
+			- next - current + 4 
+			- prev - current - 4 
+
+		8. prev / next button dimmed ( 2018.11.07)
+
+	-->
+		<h2>ecommerce - prd - detail ( 상품 이미지 1 ~ 12개 )</h2>
+		<div id="comp-card-prd" class="comp-card" data-current="1" data-size=""> 
+			<div class="comp-inner">
+				
+				<!-- prd img list -->
+				<div class="list">
+					<div class="item" data-idx="1"><img src="http://img.hfashionmall.com/images/upload/repo/originDir/p/DW/DWMS3KK63AP0_0W9_01.png" alt=""></div>
+					<div class="item" data-idx="2"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/DW/600x600/DWMS3KK63AP0_0W9_02.png" alt=""></div>
+					<div class="item" data-idx="3"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/DW/600x600/DWMS3KK63AP0_0W9_03.png" alt=""></div>
+					<div class="item" data-idx="4"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/DW/600x600/DWMS3KK63AP0_0W9_06.png" alt=""></div>
+					
+					<div class="item" data-idx="5"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/DW/600x600/DWMS3KK63AP0_0W9_08.png" alt=""></div>
+					<div class="item" data-idx="6"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/AF/600x600/AFMS4OS0001L_001_05.png" alt=""></div>
+					<div class="item" data-idx="7"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/AF/600x600/AFMS4OS0001L_001_06.png" alt=""></div>
+					<div class="item" data-idx="8"><img src="http://img.hfashionmall.com/images/upload/repo/originDir/p/5W/5WMS4WOAH000_099_06.png" alt=""></div>
+				
+					<div class="item" data-idx="9"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/5W/600x600/5WMS4WOAH000_099_06.png" alt=""></div>
+					<div class="item" data-idx="10"><img src="http://img.hfashionmall.com/images/upload/repo/originDir/p/5W/5WMS4WOAH000_099_07.png" alt=""></div>
+					<div class="item" data-idx="11"><img src="http://img.hfashionmall.com/images/upload/repo/originDir/p/5W/5WMS4WOAH000_099_08.png" alt=""></div>
+					<div class="item" data-idx="12"><img src="http://img.hfashionmall.com/images/upload/repo/originDir/p/5W/5WMS4RH95000_060_05.jpg" alt=""></div>
+				</div>
+				
+				<!-- control --> 
+				<div class="control">
+					<span class="sp-prev">
+						<button class="btn-prev" data-dimmed="y" onclick="fn_prev(); return false;"><em>prev</em></button>
+					</span>
+					<span class="sp-next">
+						<button class="btn-next" data-dimmed="N" onclick="fn_next(); return false;"><em>next</em></button>
+					</span>
+				</div>
+
+				<!-- prd thum list -->
+				<div id="comp-nav" class="nav-list" data-current="1" data-page="1" data-size="">
+					<div class="nav-list-inner">
+						<ul class="ul-nav-list">
+							
+							<li class="nav-item" data-idx="1" onclick="fn_setCurrent(1);"><img src="http://img.hfashionmall.com/images/upload/./repo/targetDir/p/DW/178x178/DWMS3KK63AP0_0W9_01.png" alt=""></li>
+							<li class="nav-item" data-idx="2"  onclick="fn_setCurrent(2);"><img src="http://img.hfashionmall.com/images/upload/./repo/targetDir/p/DW/178x178/DWMS3KK63AP0_0W9_02.png" alt=""></li>
+							<li class="nav-item" data-idx="3"  onclick="fn_setCurrent(3);"><img src="http://img.hfashionmall.com/images/upload/./repo/targetDir/p/DW/178x178/DWMS3KK63AP0_0W9_03.png" alt=""></li>
+							<li class="nav-item" data-idx="4"  onclick="fn_setCurrent(4);"><img src="http://img.hfashionmall.com/images/upload/./repo/targetDir/p/DW/178x178/DWMS3KK63AP0_0W9_06.png" alt=""></li>
+							
+							<li class="nav-item" data-idx="5"  onclick="fn_setCurrent(5);"><img src="http://img.hfashionmall.com/images/upload/./repo/targetDir/p/DW/178x178/DWMS3KK63AP0_0W9_08.png" alt=""></li>
+							<li class="nav-item" data-idx="6"  onclick="fn_setCurrent(6);"><img src="http://img.hfashionmall.com/images/upload/./repo/targetDir/p/AF/178x178/AFMS4OS0001L_001_05.png" alt=""></li>
+							<li class="nav-item" data-idx="7"  onclick="fn_setCurrent(7);"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/AF/178x178/AFMS4OS0001L_001_06.png" alt=""></li>
+							<li class="nav-item" data-idx="8"  onclick="fn_setCurrent(8);"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/5W/178x178/5WMS4WOAH000_099_06.png" alt=""></li>
+							
+							<li class="nav-item" data-idx="9"  onclick="fn_setCurrent(9);"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/5W/178x178/5WMS4WOAH000_099_06.png" alt=""></li> 
+							<li class="nav-item" data-idx="10"  onclick="fn_setCurrent(10);"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/5W/178x178/5WMS4WOAH000_099_07.png" alt=""></li>
+							<li class="nav-item" data-idx="11"  onclick="fn_setCurrent(11);"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/5W/178x178/5WMS4WOAH000_099_08.png" alt=""></li>
+							<li class="nav-item" data-idx="12"  onclick="fn_setCurrent(12);"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/5W/178x178/5WMS4RH95000_060_05.png" alt=""></li>
+
+							
+						</ul>
+					</div>
+				</div>
+				
+				<!-- paging - thumnail control --> 
+				<div class="control-nav">
+					<span class="sp-prev--2">
+						<button type="button" class="btn-prev--2" onclick="page_prev(); return false;"><span>prev</span></button>
+					</span>
+					<span class="sp-next--2">
+						<button type="button" class="btn-next--2" onclick="page_next(); return false;"><span>next</span></button>
+					</span>
+				</div>
+				
+		
+			</div>
+		</div>
+	
+	<script>
+		
+		//setting
+		var compCardPrd = document.getElementById("comp-card-prd");
+		var elItem = compCardPrd.getElementsByClassName("item");
+		var elItemCount = elItem.length; // 아이템 총 갯수 
+		
+		//console.log("elItem - " + elItemCount);
+		//console.log("current - " + current);
+
+		// thumnail paging ( margin-left )
+		var elNav = document.getElementById("comp-nav"); // nav
+		var elNavUl = elNav.getElementsByClassName("ul-nav-list")[0];
+		var elNavItems = elNav.getElementsByClassName("nav-item");
+		var elNavItemsW = elNavItems[0].clientWidth;
+
+
+		var elNavCount = elNavItems.length; // 아이템 총 갯수  - data-size setting 
+		
+		var elcurrentViewItem = 4; // 기본으로 보여지는 아이템 갯수
+		
+		console.log(elNavCount);
+
+		elNav.setAttribute("data-size", elNavCount);
+
+		
+		//next event 
+		function fn_next(){
+
+			var current = Number(compCardPrd.getAttribute("data-current")); // 상품 빅 이미지 - 현재 커러튼 값 가져오기 
+
+			current = Number( current + 1) ;
+
+			
+			if (current > elItemCount) {
+				
+				current = 1;
+			}
+
+			
+			fn_setCurrent( current );
+
+			return false;
+
+		}
+
+		//prev event 
+		function fn_prev(){
+
+			var current = Number(compCardPrd.getAttribute("data-current")); // 상품 빅 이미지 - 현재 커러튼 값 가져오기 
+
+			current = Number(current-1);
+
+			if(current <= 1){
+
+				current = 1;
+			}
+
+			fn_setCurrent(current);
+
+			return false;
+
+		}
+
+		// current event 
+		function fn_setCurrent(idx){
+
+			current = idx;
+
+			compCardPrd.setAttribute("data-current", current);  // 상품 빅 이미지 data-current setting.
+			elNav.setAttribute("data-current", current); // 상품 썸네일 이미지 data-current setting.
+
+		}
+
+		function fn2_setCurrent(idx){
+
+			current = idx;
+
+			//compCardPrd.setAttribute("data-current", current);
+			elNav.setAttribute("data-current", current); // 상품 썸네일 이미지 data-current setting.
+
+
+		}
+
+
+		//썸네일 다음 페이지 이동
+		function page_next(){
+
+			var current = Number(elNav.getAttribute("data-current"));
+			var size =  Number(elNav.getAttribute("data-size"));
+
+			current = current + 4;
+
+			console.log(current);
+			console.log(size);
+
+
+			if ( current >= size ){
+				
+				current = size;
+			}
+
+
+			// paging
+			fn_setPageing(current);
+
+			//current
+			fn2_setCurrent(current);
+
+			return false;
+
+		}
+
+		//썸네일 이전 페이지 이동
+		function page_prev(){
+
+			var current = Number(elNav.getAttribute("data-current"));
+			var size =  Number(elNav.getAttribute("data-size"));
+
+			current = current - 4;
+
+			if ( current <= 1){
+				current = 1;
+			}
+
+			// paging
+			fn_setPageing(current);
+
+			//current
+			fn2_setCurrent(current);
+
+			return false;
+		}
+		
+
+		//setpageing()
+		function fn_setPageing(idx){
+
+			var current = idx ;
+
+			
+			if ( 0 < current && current <= 4){
+
+				console.log("1");
+				elNav.setAttribute("data-page", 1);
+
+			}else if( 4 < current && current <= 8){
+
+				console.log("2");
+				elNav.setAttribute("data-page", 2);
+
+			}else{
+
+				console.log("3");
+				elNav.setAttribute("data-page", 3);
+			}
+		
+		}
+		
+	</script>
+</body>
+</html>

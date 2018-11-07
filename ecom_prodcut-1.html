@@ -176,7 +176,7 @@
 		 }
 
 
-		/* move */
+		/* data-current move */
 		.nav-list[data-current="5"]  .ul-nav-list{
 			margin-left: -150px;
 		}
@@ -192,7 +192,34 @@
 			margin-left: -600px;
 		}
 
-		 
+		.nav-list[data-current="9"]  .ul-nav-list{
+			margin-left: -750px;
+		}
+
+		.nav-list[data-current="10"]  .ul-nav-list{
+			margin-left: -900px;
+		}
+
+		.nav-list[data-current="11"]  .ul-nav-list{
+			margin-left: -1050px;
+		}
+
+		.nav-list[data-current="12"]  .ul-nav-list{
+			margin-left: -1200px;
+		}
+
+		/* data-page move */
+		/*
+		.nav-list[data-page="1"]  .ul-nav-list{
+			margin-left: 0;
+		}
+		.nav-list[data-page="2"]  .ul-nav-list{
+			margin-left: -150px;
+		}
+		.nav-list[data-page="3"]  .ul-nav-list{
+			margin-left: -750px;
+		}
+		*/
 	</style>
 		
 		
@@ -202,13 +229,11 @@
 		produt image 
 		ex. hmall / product / detail 
 		1. card type. 
-		2. prd img  1 ~ 10 개까지 등록 가능. 
-		3. prd thum 1 ~ 10 개까지 등록 가능. 
+		2. prd img  1 ~ 12 개까지 등록 가능. 
+		3. prd thum 1 ~ 12 개까지 등록 가능. 
 		4. 메인 상품 - next / prev function add
 		5. data-* 으로 prd img control . 
-
-
-	
+		6. css ani - transition duration 
 
 	-->
 		<h2>ecommerce - prd - detail</h2>
@@ -224,16 +249,7 @@
 					<div class="item" data-idx="5"><img src="http://img.hfashionmall.com/images/upload/repo/targetDir/p/DW/600x600/DWMS3KK63AP0_0W9_08.png" alt=""></div>
 					<div class="item" data-idx="6"><img src="http://img.hfashionmall.com/images/upload/repo/originDir/p/DW/DWMS3KK63AP0_0W9_01.png" alt=""></div>
 				</div>
-				<!--
-				<div class="control">
-					<span class="sp-prev">
-						<button type="button" class="btn-prev" onclick="fn_prev(); return false;" data-dimmed="y"><span>prev</span></button>
-					</span>
-					<span class="sp-next">
-						<button type="button" class="btn-next" onclick="fn_next(); return false;" data-dimmed="n"><span>next</span></button>
-					</span>
-				</div>
-				-->
+				
 				<div class="control">
 					<span class="sp-prev">
 						<button class="btn-prev" onclick="fn_prev(); return false;"><em>prev</em></button>
@@ -257,17 +273,6 @@
 					</div>
 				</div>
 			
-				<!--
-				<div class="control-nav">
-					<span class="sp-prev--2">
-						<button type="button" class="btn-prev--2" onclick=""><span>prev</span></button>
-					</span>
-					<span class="sp-next--2">
-						<button type="button" class="btn-next--2" onclick="fn_next2(); return false;"><span>next</span></button>
-					</span>
-				</div>
-				-->
-		
 			</div>
 		</div>
 	
@@ -293,9 +298,10 @@
 		var elNavCount = elNavItems.length; // 총 아이템 갯수 
 		
 		var elcurrentViewItem = 4;
-		var elcurrentView = elNav.getAttribute("data-current"); // 현재 커런트 값 가져오기 
+		 
 
 		elNav.setAttribute("data-size", elNavCount);
+		elNav.setAttribute("data-page", 1);
 
 
 
@@ -311,8 +317,6 @@
 
 		//next event 
 		function fn_next(){
-
-			console.log("next");
 
 			current = Number( current + 1) ;
 
@@ -330,23 +334,18 @@
 		//prev event 
 		function fn_prev(){
 
-			console.log('prev');
-			console.log('current1 : ' + current);
-
+			
 			current = Number(current-1);
-
-			console.log("current : " + current);
 
 			if(current <= 1){
 
 				current = 1;
 			}
 
-			console.log('current2 : ' + current);
-
 			fn_setCurrent(current);
 
 		}
+
 
 	</script>
 </body>
