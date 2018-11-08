@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>product-list (상품 이미지 1 ~ 6개까지)</title>
+	<style>
+		body{ 
+			font-family: '맑은 고딕', 'Malgun Gothic', sans-serif ; 
+			font-size: 1;
+			line-height: 1.2;
+		}
+
+		body, div, p, ul, ol, p, li, dd, dt,span { margin: 0; padding: 0; }
+		ul li, ol li{ list-style: none }
+		div, dl, dt, dd, ul, li,  a, input { box-sizing: border-box;}
+
+		.comp-prd-list{ 
+			width: 800px; 
+			margin: 0 auto;
+			
+		}
+
+		.comp-prd-list .comp-inner{
+			border: 1px solid #ddd;
+			padding: 20px;
+		}
+		
+		.comp-prd-list .comp-inner:after,
+		.prd-list .prd-list-inner:after{
+			content: '';
+			display: block;
+			clear: both;
+
+		}
+
+		.prd-list{
+			
+			width: 640px;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+
+		.prd-list .prd-list-inner {
+			zoom: 1; 
+			width: 2500px; 
+			transition-duration: 0.5s;
+		}
+
+		.card{ 
+			float: left;
+			width: 300px; 
+			margin: 0 10px;
+			text-align: center;
+		}
+		.card .card-img,
+		.card .card-title,
+		.card .card-price{ display: block; padding-top: 5px;}
+
+		.card .card-img img{ width: 300px; height: 200px;}
+
+
+		/*paging*/
+		.paging{ 
+			width: 640px;
+			margin: 0 auto;
+			background-color: red;
+			text-align: center;
+		 }
+		.paging-inner:after{
+			content: '';
+			display: block;
+			clear: both;
+		}
+
+		button {
+		    background: none;
+		    border: 0;
+		    color: inherit;
+		    /* cursor: default; */
+		    font: inherit;
+		    line-height: normal;
+		    overflow: visible;
+		    padding: 0;
+		    -webkit-appearance: button; /* for input */
+		    -webkit-user-select: none; /* for button */
+		       -moz-user-select: none;
+		        -ms-user-select: none;
+		}
+
+		.paging button{
+			display: inline-block;
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			background-color: #ddd;
+			cursor: pointer;
+
+		}
+		
+		.control button em, 
+		.paging button em{
+			background: transparent none !important;
+			border: none !important;
+			display: block !important;
+			height: 1px !important;
+			overflow: hidden !important;
+			padding: 0 !important;
+			position: absolute !important;
+			top: -999999em !important;
+			width: 1px !important;
+		}
+		
+	
+		/* paging */
+		.comp-prd-list{ position: relative; }
+		.comp-prd-list .sp-next{ position: absolute; right: 0; top: 100px;}
+		.comp-prd-list .sp-prev{ position: absolute; left: 0; top: 100px;}
+		
+
+		.control .btn-prev--1,
+		.control .btn-next--1{
+			border: 1px solid #ccc;
+			width: 40px;
+			height: 134px;
+		}
+
+		
+		.control .btn-next--1:before{
+			content:'';
+			display: block;
+			width: 15px;
+			height: 15px;
+			border: 4px solid #333;
+		    border-width: 4px 4px 0 0;
+		    transform: rotate(45deg);
+		    cursor: pointer;
+		    margin-left: 5px;
+		}
+		.control .btn-prev--1:before{
+			content:'';
+			display: block;
+			width: 15px;
+			height: 15px;
+			border: 4px solid #333;
+		    border-width: 0 0 4px 4px;
+		    transform: rotate(45deg);
+		    cursor: pointer;
+		    margin-left: 12px;
+		}
+
+
+
+		/* script */
+		.comp-prd-list[data-current="2"] .prd-list-inner{
+			margin-left: 0;
+		}
+		.comp-prd-list[data-current="3"] .prd-list-inner{
+			margin-left: -320px;
+		}
+		.comp-prd-list[data-current="4"] .prd-list-inner{
+			margin-left: -640px;
+		}
+		.comp-prd-list[data-current="5"] .prd-list-inner{
+			margin-left: -960px;
+		}
+		.comp-prd-list[data-current="6"] .prd-list-inner{
+			margin-left: -1280px;
+		}
+
+		.comp-prd-list[data-current="1"] button[data-page="1"],
+		.comp-prd-list[data-current="2"] button[data-page="1"],
+		.comp-prd-list[data-current="3"] button[data-page="2"],
+		.comp-prd-list[data-current="4"] button[data-page="2"],
+		.comp-prd-list[data-current="5"] button[data-page="3"],
+		.comp-prd-list[data-current="6"] button[data-page="3"]{ background-color: #000; }
+
+
+	</style>
+		
+		
+</head>
+<body>
+	<!-- 
+		produt image ( 2018.11.08)
+		ex. mall / product / gallery 와 유사 
+		1. card type. 
+		2. prd img  1 ~ 6 개까지 등록 가능. 
+		3. next / prev function add
+		5. data-* 으로 script control . 
+			- data-current 
+			- data-paging
+			- data-size
+		6. css ani - transition duration 
+		7. page move 
+			- next - current + 2 
+			- prev - current - 2 
+
+		8. paging 은 스크립트로 우선 화면을 만들어 본다. 
+
+
+	-->
+		<h2>ecommerce - prd list - paging 구현 ( 상품 1 ~ 6개까지 / 2개씩 노출 / next, prev )</h2>
+		<div id="comp-prd-list" class="comp-prd-list" data-current="1" data-page="" data-size=""> 
+			<div class="comp-inner">
+				
+				<!-- list -->
+				<div class="prd-list" data-current="" data-page="" data-size="">
+					<div class="prd-list-inner">
+						
+						<!--item-->
+						<div class="card" data-idx="1">
+							<a href="">
+								<span class="card-img"><img src="http://img.shinsegaetvshopping.com/goods/087/10053087_wg_20181001090527.jpg" alt=""></span>
+								<span class="card-title">상품명1</span>
+								<span class="card-price">000,000원</span>
+							</a>
+						</div>
+						<div class="card" data-idx="2">
+							<a href="">
+								<span class="card-img"><img src="http://img.shinsegaetvshopping.com/goods/243/10044243_l_20180829140752.jpg" alt=""></span>
+								<span class="card-title">상품명2</span>
+								<span class="card-price">000,000원</span>
+							</a>
+						</div>
+						<div class="card" data-idx="3">
+							<a href="">
+								<span class="card-img"><img src="http://img.shinsegaetvshopping.com/goods/087/10053087_wg_20181001090527.jpg" alt=""></span>
+								<span class="card-title">상품명3</span>
+								<span class="card-price">000,000원</span>
+							</a>
+						</div>
+						<div class="card" data-idx="4">
+							<a href="">
+								<span class="card-img"><img src="http://img.shinsegaetvshopping.com/goods/087/10053087_wg_20181001090527.jpg" alt=""></span>
+								<span class="card-title">상품명4</span>
+								<span class="card-price">000,000원</span>
+							</a>
+						</div>
+						<div class="card" data-idx="5">
+							<a href="">
+								<span class="card-img"><img src="http://img.shinsegaetvshopping.com/goods/087/10053087_wg_20181001090527.jpg" alt=""></span>
+								<span class="card-title">상품명5</span>
+								<span class="card-price">000,000원</span>
+							</a>
+						</div>
+					<!--
+						<div class="card">
+							<a href="">
+								<span class="card-img"><img src="http://img.shinsegaetvshopping.com/goods/087/10053087_wg_20181001090527.jpg" alt=""></span>
+								<span class="card-title">상품명6</span>
+								<span class="card-price">000,000원</span>
+							</a>
+						</div>
+					-->	
+					</div>
+				</div>
+				
+				<!-- paging -->
+				<div class="paging">
+					<div id="el-paging" class="paing-inner">
+						<!--
+						<button type="button" data-paging="1"><em>1</em></button>
+						<button type="button" data-paging="2"><em>2</em></button>
+						<button type="button" data-paging="3"><em>3</em></button>
+						-->
+
+					</div>
+				</div>
+
+				<!-- control -->
+				<div class="control">
+					<span class="sp-prev">
+						<button type="button" id="btn-prev--1" class="btn-prev--1" data-dimmed="y" onclick="fn_prev_page(); return false;"><em>prev</em></button>
+					</span>
+					<span class="sp-next">
+						<button type="button" id="btn-next--1" class="btn-next--1" data-dimmed="n" onclick="fn_next_page(); return false;"><em>next</em></button>
+					</span>
+				</div>
+
+
+		
+			</div>
+		</div>
+	
+	<script>
+		//setting 
+		var compPrdList = document.getElementById("comp-prd-list");
+		var elCard = compPrdList.getElementsByClassName("card");
+		var elCardCount = elCard.length;
+		var elViewItem = 2; // 화면에 2개씩 노출 
+		var elPagingNum = Math.ceil( elCardCount / elViewItem );
+
+		console.log( elCardCount );
+		console.log( elPagingNum );
+
+		compPrdList.setAttribute("data-current", elViewItem);
+		compPrdList.setAttribute("data-size", elCardCount);
+		compPrdList.setAttribute("data-page", elPagingNum);
+
+
+		//next-page 
+		function fn_next_page(){
+
+			console.log( "next");
+
+			var current = Number(compPrdList.getAttribute("data-current"));
+			
+			console.log( "current1 - " + current );
+
+			current =  current + elViewItem  ;
+
+			// 현재 페이지 아이템 마지막 커런트 +2 와 아이템 총 갯수 비교 
+			if( current >= elCardCount ){
+
+				current = elCardCount;
+			}
+
+			console.log( "current2 - " + current );
+
+			//setCurrent 
+			fn_setCurrent(current);
+
+		}
+		//prev-page
+		function fn_prev_page(){
+
+			console.log( "next");
+
+			var current = Number(compPrdList.getAttribute("data-current"));
+			
+			console.log( "current1 - " +  current );
+
+			current =  current - elViewItem  ;
+
+			// 현재 페이지 아이템 마지막 커런트 +2 와 아이템 총 갯수 비교 
+			if( current <= 0 ){
+
+				current = 2;
+			}
+
+			console.log( "current2 - " + current );
+
+			//setCurrent 
+			fn_setCurrent(current);
+			
+
+		}
+
+		//setCurrent 
+		function fn_setCurrent(idx){
+
+			var current = idx;
+
+			//setCurrent 
+			compPrdList.setAttribute("data-current", current);
+
+			return false
+
+		}
+
+		
+		//make - setPaging  makrup
+		var elPaging = document.getElementById("el-paging");
+		var page_list = [];
+		
+		console.log("elPagingNum - " + elPagingNum)
+
+		for (var i = 1; i <= elPagingNum ; i++) {
+			
+			console.log("i : " + i);
+			page_list.push("<button class='btn-paging' data-page='" + i + "' onclick='fn_setcurrent2(this);'><em>" + i + "</em><button>");
+			
+			elPaging.innerHTML = page_list.join('');
+		}
+
+		//paging - click 
+		function fn_setcurrent2(el){
+
+			var current ;
+			var elpage = el.getAttribute("data-page");
+
+			console.log("elpage : " + elpage);
+
+			current =Number(elpage * 2) ;
+
+			if( current >= elCardCount ){
+
+				current = elCardCount;
+			}
+
+			fn_setCurrent(current);
+
+		}
+
+		
+	
+		
+	</script>
+</body>
+</html>
