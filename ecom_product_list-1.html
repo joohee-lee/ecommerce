@@ -204,7 +204,7 @@
 			<div class="comp-inner">
 				
 				<!-- list -->
-				<div class="prd-list" data-current="" data-page="" data-size="">
+				<div class="prd-list">
 					<div class="prd-list-inner">
 						
 						<!--item-->
@@ -243,7 +243,6 @@
 								<span class="card-price">000,000원</span>
 							</a>
 						</div>
-					<!--
 						<div class="card">
 							<a href="">
 								<span class="card-img"><img src="http://img.shinsegaetvshopping.com/goods/087/10053087_wg_20181001090527.jpg" alt=""></span>
@@ -251,7 +250,7 @@
 								<span class="card-price">000,000원</span>
 							</a>
 						</div>
-					-->	
+						
 					</div>
 				</div>
 				
@@ -368,7 +367,8 @@
 		for (var i = 1; i <= elPagingNum ; i++) {
 			
 			console.log("i : " + i);
-			page_list.push("<button class='btn-paging' data-page='" + i + "' onclick='fn_setcurrent2(this);'><em>" + i + "</em><button>");
+			
+			page_list.push("<button class='btn-paging' data-page='" + i + "' onclick='fn_setcurrent2(this);'><em>" + i + "</em></button>");
 			
 			elPaging.innerHTML = page_list.join('');
 		}
