@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>유니클로 - 상품 </title>
+	<style>
+		body{
+			font-family: "맑은 고딕", sans-serif;
+			font-size: 14px;
+			line-height: 1.2;
+		}
+		body, div, span, img, ul, li, a{ margin: 0; padding: 0; }
+		ul, li{ list-style: none; }
+		button{
+
+			background: none;
+		    border: 0;
+		    color: inherit;
+		    /* cursor: default; */
+		    font: inherit;
+		    line-height: normal;
+		    overflow: visible;
+		    padding: 0;
+		    -webkit-appearance: button; /* for input */
+		    -webkit-user-select: none; /* for button */
+		       -moz-user-select: none;
+		        -ms-user-select: none;
+
+		}
+		
+		.dimmed{
+			position: fixed;
+		    top: 0px;
+		    left: 0px;
+		    opacity: 0.8;
+		    width: 100%;
+		    height: 100%;
+		    z-index: 900;
+		    display: block;
+		   background-color: rgb(255, 255, 255);
+		   display: none;
+		}
+		.dimmed[data-display="false"]{ display: none; }
+		.dimmed[data-display="true"]{ display: block; }
+		
+
+
+		.header,
+		.content{ 
+			width: 940px; 
+			margin: 0 auto;
+			clear: both;
+		}
+		.menu-list{
+			position: relative;
+			z-index: 1000;
+			background: #fff;
+		}
+		.menu-list:after{
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.menu-list .menu-logo{ float: left; }
+		.menu-list .menu-area{ float: left; }
+		
+		.menu-area {
+		 	width: 890px;
+		 	height: 50px; 
+		}
+		.menu-area ul li{ 
+			float: left;
+			display: inline-block; 
+			width: 178px;
+			line-height: 50px; 
+			text-align: center;
+		}
+		
+		.menu-area ul > li > a{
+			display: inline-block;
+			background-color: #ddd;
+			width: 99%;
+		}	
+
+		.menu-area .menu-panel{
+			position: absolute;
+			left: 0;
+			top: 50px;
+			width: 100%;
+			height: 200px;
+			background-color: #fff;
+			border: 1px solid #ccc;
+			box-sizing: border-box;
+		}
+
+		.panel-inner{ position: relative; height: 100%; }
+		.panel-inner .btn-close{
+			position: absolute;
+			right: 20px;
+			top: 10px;
+		}
+		.btn-close{
+			display: block;
+		    width: 40px;
+		    height: 40px;
+		    border: 1px solid red;
+		    box-sizing: border-box;
+		}
+
+		/* javascript area */
+		.menu-area .menu-panel{ display: none; }
+		.menu-area[data-current="0"] .menu-panel{ display: none; }
+		.menu-area[data-current="1"] .menu-item[data-idx="1"] .menu-panel,
+		.menu-area[data-current="2"] .menu-item[data-idx="2"] .menu-panel,
+		.menu-area[data-current="3"] .menu-item[data-idx="3"] .menu-panel,
+		.menu-area[data-current="4"] .menu-item[data-idx="4"] .menu-panel,
+		.menu-area[data-current="5"] .menu-item[data-idx="5"] .menu-panel{
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	
+	<!-- note -->
+	<!--
+		1. menu / submenu 
+		2. data-current & data-idx 
+		3. dimmed box 처리 
+	-->
+
+	<div class="header">
+		<div class="header-inner">
+
+			<div class="menu-list">
+				<span class="menu-logo"><a href="#"><img src="https://simage-kr.uniqlo.com/nq/img/logo_uq_01.gif" alt=""></a></span>	
+				
+				<div id="el-nav-menu" class="menu-area" data-current="">
+					<ul>
+						<li class="menu-item" data-idx="1">
+							<a href="#" onclick="fn_menu('1');">메뉴1</a>
+							<!-- sub menu -->
+							<div class="menu-panel" onmouseleave="fn_close();">
+								<div class="panel-inner">
+									메뉴 서브 1
+
+									<button type="button" class="btn-close" onclick="fn_close();">close</button>	
+								</div>
+							</div>
+							<!-- //sub menu -->
+						</li>
+						<li class="menu-item" data-idx="2"> 
+							<a href="#" onclick="fn_menu('2');">메뉴2</a>
+							<!-- sub menu -->
+							<div class="menu-panel">
+								<div class="panel-inner">
+									메뉴 서브 2
+
+									<button type="button" class="btn-close" onclick="fn_close();">close</button>	
+								</div>
+							</div>
+							<!-- //sub menu -->
+						</li>
+						<li class="menu-item" data-idx="3">
+							<a href="#"  onclick="fn_menu('3');">메뉴3</a>
+							<div class="menu-panel">
+								<div class="panel-inner">
+									메뉴 서브 3
+
+									<button type="button" class="btn-close" onclick="fn_close();">close</button>
+								</div>	
+							</div>
+						</li>
+						<li class="menu-item" data-idx="4">
+							<a href="#"  onclick="fn_menu('4');">메뉴4</a>
+							<div class="menu-panel">
+								<div class="panel-inner">
+									메뉴 서브 4
+
+									<button type="button" class="btn-close" onclick="fn_close();">close</button>
+								</div>	
+							</div>
+						</li>
+						<li class="menu-item" data-idx="5">
+							<a href="#"  onclick="fn_menu('5');">메뉴5</a>
+							<div class="menu-panel">
+								<div class="panel-inner">
+									메뉴 서브 5
+
+									<button type="button" class="btn-close" onclick="fn_close();">close</button>
+								</div>	
+							</div>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		
+			<div class="dimmed" id="el-dimmed" data-display="false" onclick="fn_close();">
+				<!-- Accessbility -->
+			</div>
+
+		</div>
+	</div>
+	
+	<script>
+		//set 
+		var elnav = document.getElementById("el-nav-menu");
+		var elnavCurrent = elnav.getAttribute("data-current");
+		var elDimmed = document.getElementById("el-dimmed");
+
+		//event 
+		function fn_menu(idx){
+
+			//console.log("idx:" + idx);
+			console.log("popover");
+
+			elnav.setAttribute("data-current", idx);
+			elDimmed.setAttribute("data-display", "true");
+
+			return false;
+
+		}
+
+
+		function fn_close(){
+
+			console.log("popclose");
+
+			elnav.setAttribute("data-current", 0);
+			elDimmed.setAttribute("data-display", "false");
+
+			return false;
+
+		}
+	</script>
+
+
+	<div class="content">
+		<img src="https://simage-kr.uniqlo.com/display/corner/2162/PC_L1_titlebanner_181119_gift2.jpg" alt="">
+	</div>
+	
+
+
+</body>
+</html>
