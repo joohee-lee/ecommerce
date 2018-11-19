@@ -129,6 +129,10 @@
 			
 		}
 
+		.comp-prd  .div-ps{ position: absolute; right: 0; top: -10px; }
+		.btn-stop,
+		.btn-play{ border: 1px solid #ddd; border-radius: 2px }
+
 		/* javascript - bordered */
 		.comp-prd[data-current="1"] .prd-card[data-idx="1"],
 		.comp-prd[data-current="2"] .prd-card[data-idx="2"],
@@ -183,7 +187,7 @@
 	
 	<!-- note -->
 	
-	
+
 	<!--
 	https://store-kr.uniqlo.com/display/displayShop.lecs?storeNo=83&siteNo=50706&displayNo=NQ1A13A07&displayMallNo=NQ1&tracking=header_logo&stonType=P&utm_source=NV_TB&utm_medium=PC&utm_campaign=18FW_HT&utm_term=20181119
 
@@ -291,6 +295,12 @@
 				</div>
 			</div>
 
+			<!-- play, stop -->
+			<div class="div-ps">
+				<button class="btn-play" onclick="play(); "><span>play</span></button>
+				<button class="btn-stop" onclick="stop(); "><span>stop</span></button>
+			</div>
+
 		</div>
 	</div>
 
@@ -307,6 +317,8 @@
 		//next
 		function fn_Next(){
 
+			clearInterval( autorolling );
+
 			console.log("next");
 
 			current = Number(current + 1);
@@ -318,10 +330,14 @@
 
 			setCurrent(current);
 
+			autorolling = setInterval( function(){ fn_Next(); } , 3000);
+
 		}
 
 		//prev
 		function fn_Prev(){
+
+			clearInterval( autorolling );
 
 			current = current - 1 
 
@@ -331,6 +347,8 @@
 			}
 
 			setCurrent(current);
+
+			autorolling = setInterval( function(){ fn_Next(); } , 3000);
 
 		}
 
@@ -344,9 +362,25 @@
 			return false;
 		}
 
+		//autorolling
+		var autorolling = setInterval( function(){ fn_Next(); } , 3000);
 
+		//stop
+		function stop(){
 
+			clearInterval( autorolling );
 
+			return false;
+		}
+
+		//play
+		function play(){
+
+			autorolling = setInterval( function(){ fn_Next(); } , 3000);
+
+			return false ;
+
+		}
 	</script>
 	
 </body>
