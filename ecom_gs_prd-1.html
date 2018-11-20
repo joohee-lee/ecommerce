@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>GS - 상품 - 3개씩 셋트  </title>
+	<style>
+		body{
+			font-family: "맑은 고딕", sans-serif;
+			font-size: 14px;
+			line-height: 1.2;
+		}
+		body, div, span, img, ul, li, a{ margin: 0; padding: 0; box-sizing: border-box;}
+		ul, li{ list-style: none; }
+		button{
+
+			background: none;
+		    border: 0;
+		    color: inherit;
+		    /* cursor: default; */
+		    font: inherit;
+		    line-height: normal;
+		    overflow: visible;
+		    padding: 0;
+		    -webkit-appearance: button; /* for input */
+		    -webkit-user-select: none; /* for button */
+		       -moz-user-select: none;
+		        -ms-user-select: none;
+
+		}
+		
+		.gs-prd--1, h2{
+			width: 998px;
+			margin: 20px auto;
+		}
+		.div-inner{
+			content: '';
+			display: block;
+			clear: both;
+		}
+
+		.gs-prd--1{
+			position: relative;
+		}
+		
+		.prd-list{
+			width: 998px;
+			border: 1px solid #ddd;
+			border-top: 0;
+			overflow: hidden;
+			box-sizing: border-box;
+		}
+		.ul-list{
+			
+			width: 20000px;
+			transition-duration: 2s;
+
+		}
+		.ul-list:after{
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.ul-list li{ 
+			float: left; 
+			border-top: 1px solid #ddd; 
+			border-left: 1px solid #ddd; 
+			width: 332px; 
+			min-height: 250px;
+		}
+		.ul-list li:nth-child(3n+1) {
+		 	border-left: 0; 
+		}
+
+		.prd-card .prd-img img{ width: 100%; }
+		.prd-card span{ display: block; }
+		.prd-card .prd-info{ padding: 10px; }
+
+		
+		.div-paging {
+			position: absolute;
+			right: 70px;
+			top: -27px;
+		}
+
+		.sp-current-page{ color: red; }
+
+		/* button */
+		.div-control {
+			position: absolute;
+			right: 10px;
+			top: -30px;
+		}
+		.div-control button{ border: 1px solid #ddd; border-radius: 2px; }
+		.div-control button {
+			position: relative;
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+		
+		}
+		.div-control .btn-prev:before{
+			content: '';
+			display: block;
+			position: absolute;
+			left: 5px;
+			top: 5px;
+			width: 5px;
+			height: 5px;
+			border: 2px solid #333;
+		    border-width: 0 0 2px 2px;
+		    transform: rotate(45deg);
+		    cursor: pointer;
+
+		}
+		.div-control .btn-next:before{
+			content: '';
+			display: block;
+			position: absolute;
+			left: 5px;
+			top: 5px;
+			width: 5px;
+			height: 5px;
+			border: 2px solid #333;
+		    border-width: 2px 2px 0 0;
+		    transform: rotate(45deg);
+		    cursor: pointer;
+
+		}
+
+		.div-control span{
+			background: transparent none !important;
+			border: none !important;
+			display: block !important;
+			height: 1px !important;
+			overflow: hidden !important;
+			padding: 0 !important;
+			position: absolute !important;
+			top: -999999em !important;
+			width: 1px !important;
+		}
+
+		/* script */
+		.gs-prd--1 .li-item { display: none; }
+		.gs-prd--1[data-current="3"] .li-item[data-idx="1"],
+		.gs-prd--1[data-current="3"] .li-item[data-idx="2"],
+		.gs-prd--1[data-current="3"] .li-item[data-idx="3"],
+		.gs-prd--1[data-current="6"] .li-item[data-idx="4"],
+		.gs-prd--1[data-current="6"] .li-item[data-idx="5"],
+		.gs-prd--1[data-current="6"] .li-item[data-idx="6"],
+		.gs-prd--1[data-current="9"] .li-item[data-idx="7"],
+		.gs-prd--1[data-current="9"] .li-item[data-idx="8"],
+		.gs-prd--1[data-current="9"] .li-item[data-idx="9"]{ display: block; }
+
+	</style>
+</head>
+<body>
+	
+	<!-- note -->
+	<!--
+	## https://with.gsshop.com/index.gs?lseq=391141-1&dseq=0&gsid=ECmain-AU391141-AU391141-1
+	1. 상품 3개씩 셋트 이동  / 마크업 ul / li * 3 
+	2. view item : 3 ;
+	3. current start : 3;
+	4. 페이지 노출 
+	5. 이전 / 다음 이벤트 
+	-->
+	<h2>GS eshop prduct </h2>
+	<div id="gs-prd--1" class="gs-prd--1" data-current="3">
+		<div class="div-inner">
+			
+			<div class="prd-list">
+				<ul class="ul-list">
+					<li class="li-item" data-idx="1">
+						<div class="prd-card">
+							<span class="prd-img"><img src="http://image.gsshop.com/mi09/deal/dealno/337/2018112142343668822.jpg" alt=""></span>
+							<div class="prd-info">
+								<span class="sp-name">상품네임-1</span>
+								<span class="sp-price">GS가 30000원</span>
+								<span class="sp-buying">405개 구매중</span>
+							</div>
+						</div>
+					</li>
+					<li class="li-item" data-idx="2">
+						<div class="prd-card">
+							<span class="prd-img"><img src="http://image.gsshop.com/mi09/deal/dealno/333/2018111919413419761.jpg" alt=""></span>
+							<div class="prd-info">
+								<span class="sp-name">상품네임-2</span>
+								<span class="sp-price">GS가 30000원</span>
+								<span class="sp-buying">405개 구매중</span>
+							</div>
+						</div>
+					</li>
+					<li class="li-item" data-idx="3">
+						<div class="prd-card">
+							<span class="prd-img"><img src="http://image.gsshop.com/mi09/deal/dealno/335/2018111495110303957.jpg" alt=""></span>
+							<div class="prd-info">
+								<span class="sp-name">상품네임-3</span>
+								<span class="sp-price">GS가 30000원</span>
+								<span class="sp-buying">405개 구매중</span>
+							</div>
+						</div>
+					</li>
+					<li class="li-item" data-idx="4">
+						<div class="prd-card">
+							<span class="prd-img"><img src="http://image.gsshop.com/mi09/deal/dealno/337/2018103110222249995.jpg" alt=""></span>
+							<div class="prd-info">
+								<span class="sp-name">상품네임-4</span>
+								<span class="sp-price">GS가 30000원</span>
+								<span class="sp-buying">405개 구매중</span>
+							</div>
+						</div>
+					</li>
+					<li class="li-item" data-idx="5">
+						<div class="prd-card">
+							<span class="prd-img"><img src="http://image.gsshop.com/mi09/deal/dealno/336/20181114164937538961.jpg" alt=""></span>
+							<div class="prd-info">
+								<span class="sp-name">상품네임-5</span>
+								<span class="sp-price">GS가 30000원</span>
+								<span class="sp-buying">405개 구매중</span>
+							</div>
+						</div>	
+					</li>
+					<li class="li-item" data-idx="6">
+						<div class="prd-card">
+							<span class="prd-img"><img src="http://image.gsshop.com/mi09/deal/dealno/309/20180425150905795749.jpg" alt=""></span>
+							<div class="prd-info">
+								<span class="sp-name">상품네임-6</span>
+								<span class="sp-price">GS가 30000원</span>
+								<span class="sp-buying">405개 구매중</span>
+							</div>
+						</div>	
+					</li>
+					<li class="li-item" data-idx="7">
+						<div class="prd-card">
+							<span class="prd-img"><img src="http://image.gsshop.com/mi09/deal/dealno/339/2018111211245020983.jpg" alt=""></span>
+							<div class="prd-info">
+								<span class="sp-name">상품네임-7</span>
+								<span class="sp-price">GS가 30000원</span>
+								<span class="sp-buying">405개 구매중</span>
+							</div>
+						</div>	
+					</li>
+					<li class="li-item" data-idx="8">
+						<div class="prd-card">
+							<span class="prd-img"><img src="http://image.gsshop.com/mi09/deal/dealno/338/201811918272414063.jpg" alt=""></span>
+							<div class="prd-info">
+								<span class="sp-name">상품네임-8</span>
+								<span class="sp-price">GS가 30000원</span>
+								<span class="sp-buying">405개 구매중</span>
+							</div>
+						</div>	
+					</li>
+					<li class="li-item" data-idx="9">
+						<div class="prd-card">
+							<span class="prd-img"><img src="http://image.gsshop.com/mi09/deal/dealno/337/2018112142343668822.jpg" alt=""></span>
+							<div class="prd-info">
+								<span class="sp-name">상품네임-9</span>
+								<span class="sp-price">GS가 30000원</span>
+								<span class="sp-buying">405개 구매중</span>
+							</div>
+						</div>	
+					</li>
+				</ul>
+			</div>
+			
+			<!-- paging -->
+			<div class="div-paging">
+				<span id="sp-current-page" class="sp-current-page"></span> /
+				<span id="sp-pageing" class="sp-pageing"></span>
+			</div>
+
+			<!-- control -->
+			<div class="div-control">
+				<button type="button" class="btn-prev" onclick="fn_prev();"><span>이전</span></button>
+				<button type="button" class="btn-next" onclick="fn_next();"><span>다음</span></button>
+			</div>
+	
+		</div>
+	</div>
+
+	<script>
+		var elGSprd = document.getElementById("gs-prd--1");
+		var elUlList = document.querySelectorAll('.ul-list')[0];
+		var elLiItem = elUlList.querySelectorAll('.li-item');;
+		var elLiCount = elLiItem.length;
+
+		//console.log(elLiItem.length)
+
+		var current = 3;
+		var viewItem = 3;
+		var page = Math.ceil( elLiCount / viewItem );
+
+		var currentPage = Number(elGSprd.getAttribute("data-current")) / viewItem;
+
+		//set page
+		var spCurrent = document.getElementById("sp-current-page");
+		spCurrent.append(currentPage);
+
+		var spPage = document.getElementById("sp-pageing");
+		spPage.append(page);
+
+		//next
+		function fn_next(){
+
+			 current = current + viewItem ;
+
+			if( current > elLiCount){
+
+				current = viewItem;
+
+			}
+
+			setCurrent(current);
+			
+		}
+
+		//prev
+		function fn_prev(){
+
+			 current = current - viewItem ;
+
+			if( current <= 0){
+
+				current = elLiCount;
+
+			}
+
+			setCurrent(current);
+		}
+
+		//setCurrent
+		function setCurrent(idx){
+
+			current = idx;
+
+			//current
+			elGSprd.setAttribute("data-current", current);
+
+			//paging
+			currentPage =  current / viewItem;
+			spCurrent.innerHTML = currentPage;
+			
+			return false;
+
+		}
+
+	</script>
+	
+
+</body>
+</html>
