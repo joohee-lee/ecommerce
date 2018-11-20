@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>유니클로 - 상품 - 1 - rolling </title>
+	<style>
+		body{
+			font-family: "맑은 고딕", sans-serif;
+			font-size: 14px;
+			line-height: 1.2;
+		}
+		body, div, span, img, ul, li, a{ margin: 0; padding: 0; box-sizing: border-box;}
+		ul, li{ list-style: none; }
+		button{
+
+			background: none;
+		    border: 0;
+		    color: inherit;
+		    /* cursor: default; */
+		    font: inherit;
+		    line-height: normal;
+		    overflow: visible;
+		    padding: 0;
+		    -webkit-appearance: button; /* for input */
+		    -webkit-user-select: none; /* for button */
+		       -moz-user-select: none;
+		        -ms-user-select: none;
+
+		}
+		
+		.uni-comp-prd-one{
+			position: relative;
+			border: 1px solid #ddd;
+			width: 190px;
+			text-align: center;
+			margin: 0 auto;
+			padding: 10px 0;
+
+		}
+
+		.div-inner{
+			content:'';
+			display: block;
+			clear: both;
+		}
+
+		.prd-card-list{
+			margin: 0 auto;
+			width: 170PX;
+			overflow: hidden;
+			text-align: left;
+
+		}
+
+		.prd-inner{
+			width: 2000px;
+			transition-duration: 1s;
+		}
+
+
+		.prd-card{
+			float: left;
+			width: 170px;
+		}
+
+		.prd-card span{
+			display: block;
+		}
+
+		.div-control {
+			position: absolute;
+			right: 10px;
+			bottom: 5px;
+		}
+		.div-control button{ border: 1px solid #ddd; border-radius: 2px; }
+		.div-control button {
+			position: relative;
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+		
+		}
+		.div-control .btn-prev:before{
+			content: '';
+			display: block;
+			position: absolute;
+			left: 5px;
+			top: 5px;
+			width: 5px;
+			height: 5px;
+			border: 2px solid #333;
+		    border-width: 0 0 2px 2px;
+		    transform: rotate(45deg);
+		    cursor: pointer;
+
+		}
+		.div-control .btn-next:before{
+			content: '';
+			display: block;
+			position: absolute;
+			left: 5px;
+			top: 5px;
+			width: 5px;
+			height: 5px;
+			border: 2px solid #333;
+		    border-width: 2px 2px 0 0;
+		    transform: rotate(45deg);
+		    cursor: pointer;
+
+		}
+
+		.div-control span{
+			background: transparent none !important;
+			border: none !important;
+			display: block !important;
+			height: 1px !important;
+			overflow: hidden !important;
+			padding: 0 !important;
+			position: absolute !important;
+			top: -999999em !important;
+			width: 1px !important;
+		}
+
+		/* move */
+		.uni-comp-prd-one[data-current="2"]  .prd-card-list .prd-inner{ margin-left: -170px; }
+		.uni-comp-prd-one[data-current="3"]  .prd-card-list .prd-inner{ margin-left: -340px; }
+		.uni-comp-prd-one[data-current="4"]  .prd-card-list .prd-inner{ margin-left: -510px; }
+		.uni-comp-prd-one[data-current="5"]  .prd-card-list .prd-inner{ margin-left: -680px; }
+		.uni-comp-prd-one[data-current="6"]  .prd-card-list .prd-inner{ margin-left: -850px; }
+		.uni-comp-prd-one[data-current="7"]  .prd-card-list .prd-inner{ margin-left: -1020px; }
+		.uni-comp-prd-one[data-current="8"]  .prd-card-list .prd-inner{ margin-left: -1190px; }
+		.uni-comp-prd-one[data-current="9"]  .prd-card-list .prd-inner{ margin-left: -1360px; }
+		.uni-comp-prd-one[data-current="10"]  .prd-card-list .prd-inner{ margin-left: -1530px; }
+
+		/* script */
+		/* .uni-comp-prd-one .prd-card{ display: none; } * margin -left 로 동하지 않을 경우 사용 */
+		.uni-comp-prd-one[data-current="1"] .prd-card[data-idx="1"],
+		.uni-comp-prd-one[data-current="2"] .prd-card[data-idx="2"],
+		.uni-comp-prd-one[data-current="3"] .prd-card[data-idx="3"],
+		.uni-comp-prd-one[data-current="4"] .prd-card[data-idx="4"],
+		.uni-comp-prd-one[data-current="5"] .prd-card[data-idx="5"],
+		.uni-comp-prd-one[data-current="6"] .prd-card[data-idx="6"],
+		.uni-comp-prd-one[data-current="7"] .prd-card[data-idx="7"],
+		.uni-comp-prd-one[data-current="8"] .prd-card[data-idx="8"],
+		.uni-comp-prd-one[data-current="9"] .prd-card[data-idx="9"],
+		.uni-comp-prd-one[data-current="10"] .prd-card[data-idx="10"]{
+			display: block;
+		}
+
+		
+		h2{ width: 400px; margin: 20px auto; text-align: center;}
+	</style>
+</head>
+<body>
+	
+	<!-- note -->
+	<!--
+	## uniqlo 함께본 상품 / 인기상품 추천 등.. 많이 사용하는 컴포넌트 
+	## https://store-kr.uniqlo.com/display/showDisplayCache.lecs?goodsNo=NQ31114783&recopick=25
+	1. 상품 최대 10개까지 가능  
+	2. 이전 / 다음 기능 
+	3. paging
+	4. data-current / data-index
+
+
+	-->
+
+
+	<h2> 함께본 상품 / 인기상품 ... </h2>
+	
+	<div id="uni-comp-prd" class="uni-comp-prd-one" data-current="1">
+		<div class="div-inner">
+
+			<!-- card list -->
+			<div class="prd-card-list">
+				<div class="prd-inner">
+
+					<!-- card -->
+					<div class="prd-card" data-idx="1">
+						<div class="div-inner">
+							<span class="prd-img"><img src="https://simage-kr.uniqlo.com/goods/31/11/44/32/412751_COL_COL31_170.jpg" alt=""></span>
+							<div class="prd-info">
+								<span class="sp-ctg">Women</span>
+								<span class="sp-name">상품네이밍 1</span>
+								<span class="sp-price">70000원</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="prd-card" data-idx="2">
+						<div class="div-inner">
+							<span class="prd-img"><img src="https://simage-kr.uniqlo.com/goods/31/11/47/87/410179_COL_COL34_170.jpg" alt=""></span>
+							<div class="prd-info">
+								<span class="sp-ctg">Women</span>
+								<span class="sp-name">상품네이밍 2</span>
+								<span class="sp-price">70000원</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="prd-card" data-idx="3">
+						<div class="div-inner">
+							<span class="prd-img"><img src="https://simage-kr.uniqlo.com/goods/31/11/44/31/412412_COL_COL68_170.jpg" alt=""></span>
+							<div class="prd-info">
+								<span class="sp-ctg">Women</span>
+								<span class="sp-name">상품네이밍 3</span>
+								<span class="sp-price">70000원</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="prd-card" data-idx="4">
+						<div class="div-inner">
+							<span class="prd-img"><img src="https://simage-kr.uniqlo.com/goods/31/11/47/83/410180_COL_COL13_170.jpg" alt=""></span>
+							<div class="prd-info">
+								<span class="sp-ctg">Women</span>
+								<span class="sp-name">상품네이밍 4</span>
+								<span class="sp-price">70000원</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- //card list -->
+
+			<!-- paging -->
+			<div class="div-paging">
+				<span class="sp-current" id="spanCurrent" style="color: red;"></span> / <span id="spanCount" class="sp-count"></span>
+			</div>
+
+			<!-- control -->
+			<div id="uni-control" class="div-control">
+				<div class="div-inner">
+					<button class="btn-prev" onclick="fn_prev();"><span>이전</span></button>
+					<button class="btn-next" onclick="fn_next();"><span>다음</span></button>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	
+	<script>
+		//set 
+		var elcompPrd = document.getElementById("uni-comp-prd");
+		var elcompPrdItem = elcompPrd.querySelectorAll('.prd-card');
+
+		/*
+		var elcompPrdItemWidth = 170;
+		var elcompPrdML = elcompPrd.querySelectorAll('.prd-inner')[0];
+		*/
+
+		var elCount = elcompPrdItem.length;
+		var current = 1;
+
+		//paging set 
+		var elcurrentPage = elcompPrd.getAttribute("data-current"); // 현재 아이템 번호
+		var spanCurrent = document.getElementById("spanCurrent");
+		spanCurrent.append(elcurrentPage);
+
+		// 총 아이템 갯수 
+		var spanCount = document.getElementById("spanCount");
+		spanCount.append(elCount);
+
+
+		//evnet
+		function fn_next(){
+
+			console.log("next");
+
+			current = current + 1;
+
+			if ( current > elCount ) {
+
+				current = 1;
+			}
+
+			setCurrent(current);
+			
+		}
+
+
+		function fn_prev(){
+
+			console.log("prev");
+
+			current = current - 1;
+
+			if ( current <= 0 ) {
+
+				current = elCount;
+			}
+
+			setCurrent(current);
+
+		}
+
+		//setCurrent 
+		function setCurrent(idx){
+
+			elcompPrd.setAttribute("data-current", current );
+			
+			//current item number - replace 
+			var spanCurrent = document.getElementById("spanCurrent");
+			spanCurrent.innerHTML = current;
+			
+			return false;
+		}
+
+		
+
+	</script>
+
+
+</body>
+</html>
