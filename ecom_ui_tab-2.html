@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>tab-1 -- show/hide </title>
+	<style>
+		body{ 
+			font-family: '맑은 고딕', 'Malgun Gothic', sans-serif ; 
+			font-size: 1;
+			line-height: 1.2;
+		}
+
+		* { margin: 0; padding: 0; }
+		ul, li{ list-style: none }
+		div, dl, dt, dd, ul, li,  a { box-sizing: border-box;}
+		
+
+		.comp-tabs{ 
+			width: 400px; 
+			margin: 0 auto; 
+			border: 1px solid #ddd;
+		}
+		
+
+		.div-inner:after{ 
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+	
+		
+
+		
+		.tabs{
+			 border-bottom: 1px solid #333;
+		}
+		.tabs:after{ 
+				content:"";
+				display:block;
+				clear: both;
+		}
+
+		/*
+		.tabs .tab-item{ 
+			float: left; 
+			display: inline-block; 
+			width: 33.33%;
+			padding: 10px;
+			text-align: center;
+			position: relative;
+		}
+		*/
+
+		.tabs ul{
+			  font-size: 0;
+  letter-spacing: 0;
+  word-spacing: normal;
+  white-space: nowrap;
+  background: red;
+		}
+		.tabs li{
+			    display: inline-block;
+			    *display: inline;
+			    *zoom: 1;
+			    position: relative;
+			    vertical-align: bottom; 
+			    width: 33%;
+			    
+		}
+		.tabs li[data-on="false"]:before {
+			  content: "";
+			  position: absolute;
+			  bottom: -1px;
+			  left: 50%;
+			  right: 0;
+			  width: 0;
+			  height: 2px;
+			  background: #ef3f43;
+			  -webkit-transition: all ease .3s;
+			  transition: all ease .3s;
+		}
+		.tabs .tab-item a{
+			display: inline-block;
+			  *display: inline;
+			  *zoom: 1;
+			  padding: 0 10px 13px;
+			  font-size: 16px;
+			  line-height: 18px;
+			  text-align: center;
+			  white-space: nowrap;
+			  color: #000;
+			  -webkit-transition: color ease .3s;
+			  transition: color ease .3s;
+		}
+		
+
+
+		.tabs .tab-item a:hover { 
+			color: #ef3f43;
+		}
+
+		.panels{ clear:both;  }
+		.panels .panel{ 
+			display: none;
+			padding: 10px;
+			min-height: 300px;
+		}
+
+		/*show/hide*/
+		.comp-tabs--1[data-current="1"] .tab-item[data-idx="1"],
+		.comp-tabs--1[data-current="1"] .panel[data-idx="1"],
+		.comp-tabs--1[data-current="2"] .tab-item[data-idx="2"],
+		.comp-tabs--1[data-current="2"] .panel[data-idx="2"],
+		.comp-tabs--1[data-current="3"] .tab-item[data-idx="3"],
+		.comp-tabs--1[data-current="3"] .panel[data-idx="3"]{ display: block; }
+		
+
+		.comp-tabs--1[data-current="1"] li[data-on="true"]:before,
+		.comp-tabs--1[data-current="2"] li[data-on="true"]:before,
+		.comp-tabs--1[data-current="3"] li[data-on="true"]:before{ 
+			left: 0;
+  			width: 100%;
+		}
+
+		.comp-tabs--1[data-current="1"] li[data-on="true"] a[data-idx="1"],
+		.comp-tabs--1[data-current="2"] li[data-on="true"] a[data-idx="2"],
+		.comp-tabs--1[data-current="3"] li[data-on="true"] a[data-idx="3"] { 
+			font-weight: 500;
+  			color: #ef3f43;
+		}
+
+	</style>
+</head>
+<body>
+	<!-- comp-tab--basic --->
+	<div id="compTabs1" class="comp-tabs comp-tabs--1" data-current="1">
+		<div class="div-inner">
+
+			<div class="tabs">
+				<ul>
+					<li class="tab-item" data-on="false"  data-idx="1" onclick="showtab(this);"><a href="#">Tab--1</a></li>
+					<li class="tab-item" data-on="false"  data-idx="2" onclick="showtab(this);"><a href="#">Tab--2</a></li>
+					<li class="tab-item" data-on="false"  data-idx="3" onclick="showtab(this);"><a href="#">Tab--3</a></li>
+				</ul>
+			</div>
+			
+			<div class="panels">
+				<div class="panel" data-idx="1">
+					panel--1
+				</div>
+				<div class="panel" data-idx="2">
+					panel--2
+				</div>
+				<div class="panel" data-idx="3">
+					panel--3
+				</div>
+			</div>
+
+			<div class="controls">
+				
+			</div>
+		
+		</div>
+	</div>
+	<!-- //comp-tab--basic --->
+	
+	<script>
+
+		var compTabs1 = document.getElementById("compTabs1");
+
+		function showtab(el){
+	
+			var elidx = el.getAttribute("data-idx");
+
+			console.log(elidx);
+		
+			compTabs1.setAttribute("data-current", elidx);
+
+		}
+	</script>
+</body>
+</html>

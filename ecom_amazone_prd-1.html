@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>아마존 - 상품 </title>
+	<style>
+		body{
+			font-family: "맑은 고딕", sans-serif;
+			font-size: 14px;
+			line-height: 1.2;
+		}
+		body, div, span, img, ul, li, a{ margin: 0; padding: 0; box-sizing: border-box;}
+		ul, li{ list-style: none; }
+
+		/*
+		button{
+
+			background: none;
+		    border: 0;
+		    color: inherit;
+		  
+		    font: inherit;
+		    line-height: normal;
+		    overflow: visible;
+		    padding: 0;
+		    -webkit-appearance: button;
+		    -webkit-user-select: none; 
+		       -moz-user-select: none;
+		        -ms-user-select: none;
+
+		}
+		*/
+		
+		
+		.amz-grid{
+			position: relative;
+			max-width: 1480px;
+			margin: 0 auto;
+			overflow:hidden;
+    		padding:20px 0;
+
+		}
+
+		.prd-section{
+			width: 100%;
+			background-color: #fff;
+		}
+		
+		.prd-section .prd-inner{
+			/*width: 100%;*/
+			width: 1300px;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+		.prd-section .prd-list{
+			/* width: 2500px; */
+			transition-duration: 1s;
+			
+		}
+		.prd-section .prd-list:after{
+			content: '';
+			display: block;
+			clear: both;
+		}
+
+		.prd-section .prd-list:before {
+		    display: table;
+		    content: "";
+		    line-height: 0;
+		    font-size: 0;
+		}
+
+		.prd-section .list-item{
+			float: left;
+			display: inline-block;
+		    text-align: center;
+		    width: 240px;
+		    min-width: 145px;
+		    max-width: 240px;
+		    height: 200px;
+		    max-height: 200px;
+		    overflow: hidden;
+		    margin:0 10px;
+		    border: 1px solid #ddd;
+		}
+
+
+		.prd-card{
+		    text-align: center;
+		    position: relative;
+		    display: inline-block;
+		 }
+
+		 .prd-card .prd-img {
+		 	line-height: 200px;
+		 }
+
+		 .prd-card .prd-img img{
+			width: auto;
+		    height: auto;
+		    max-width: 240px;
+		    max-height: 200px;
+		    vertical-align: middle;
+		 }
+
+
+		.amz-grid .btn-prev{
+			position: absolute;
+			left: 0;
+			top: 20%;
+
+		}
+
+		.amz-grid .btn-next,
+		.amz-grid .btn-first{
+			position: absolute;
+			right: 0;
+			top: 20%;
+
+		}
+
+		.btn-prev,
+		.btn-next,
+		.btn-first{
+			border: 1px solid #ccc;
+			width: 40px;
+			height: 134px;
+		}
+		
+		
+		.btn-next:before{
+			content:'';
+			display: block;
+			width: 15px;
+			height: 15px;
+			border: 4px solid #333;
+		    border-width: 4px 4px 0 0;
+		    transform: rotate(45deg);
+		    cursor: pointer;
+		    margin-left: 0px;
+		}
+		.btn-prev:before{
+			content:'';
+			display: block;
+			width: 15px;
+			height: 15px;
+			border: 4px solid #333;
+		    border-width: 0 0 4px 4px;
+		    transform: rotate(45deg);
+		    cursor: pointer;
+		    margin-left: 5px;
+		}
+
+		.btn-next span,
+		.btn-prev span{
+			background: transparent none !important;
+			border: none !important;
+			display: block !important;
+			height: 1px !important;
+			overflow: hidden !important;
+			padding: 0 !important;
+			position: absolute !important;
+			top: -999999em !important;
+			width: 1px !important;
+		}
+
+
+		h2{
+			text-align: center;
+		}
+
+		/* script */		
+
+		.control-section button[data-hidden="true"]{
+			display: none;
+		}
+
+		.control-section button[data-hidden="false"]{
+			display: block;
+		}
+
+		.prd-list[data-page="1"]{ margin-left: 0; }
+		.prd-list[data-page="2"]{ margin-left: -1300px; }
+		.prd-list[data-page="3"]{ margin-left: -2600px; }
+		
+		.prd-list[data-page="2"][data-size="6"]{ margin-left: -260px;}
+		.prd-list[data-page="2"][data-size="7"]{ margin-left: -520px;}
+		.prd-list[data-page="2"][data-size="8"]{ margin-left: -780px;}
+		.prd-list[data-page="2"][data-size="9"]{ margin-left: -1040px;}
+		.prd-list[data-page="2"][data-size="10"]{ margin-left: -1300px;}
+		
+		.prd-list[data-page="3"][data-size="11"]{ margin-left: -1560px;}
+		.prd-list[data-page="3"][data-size="12"]{ margin-left: -1820px;}
+		.prd-list[data-page="3"][data-size="13"]{ margin-left: -2080px;}
+		.prd-list[data-page="3"][data-size="14"]{ margin-left: -2340px;}
+		.prd-list[data-page="3"][data-size="15"]{ margin-left: -2600px;}
+	
+	</style>
+
+	
+</head>
+<body>
+	
+	<!-- note -->
+	<!--
+	## carousel : https://www.amazon.com/ 메인 상품 노출 
+	1. 현 아마존은. width : 1480px  노출 되는 아이템 수에 노출
+	2. 상품이 구분되어져 보이지 않아 다소 보는게 불편. 
+	3. 5개 상품씩 노출로 다시 재구현. 
+	4. 상품은 1 - 15개까지 등록 가능 (최소 5개까지는 필수.) 
+	5. data-current, data-page , data-size 로 구현
+	6. 이전 / 다음 구현 
+	7. 마지막 페이지에서는 처음으로 갈 수 있는 "first" 기능 추가 
+	   다음 버튼을 숨기고, 처음버튼을 노출. 
+	8. 처음 페이지에서는 "이전" 버튼을 숨김. 
+
+	-->
+	<h2>아마존 prduct - 다른 방식으로 구현 </h2>
+
+	<div class="amz-grid">
+		<div class="div-inner">
+
+			<!-- prd list -->
+			<div class="prd-section carousel">
+				<div class="prd-inner carousel-viewport">
+
+
+					<ul id="ul-prd-list" class="prd-list" data-current="1" data-page="1"  data-size="">
+						<li class="list-item" role="listitem" data-index="1">
+							<div class="prd-card">
+								<span class="prd-img"><a href=""><img src="https://images-na.ssl-images-amazon.com/images/I/41s8w2udgiL._AC_SY400_.jpg" alt="" class="thum-img"></a></span>
+							</div>
+						</li>
+						<li class="list-item" role="listitem" data-index="2">
+							<div class="prd-card">
+								<span class="prd-img"><a href=""><img src="https://images-na.ssl-images-amazon.com/images/I/31RJovlt3iL._AC_SY400_.jpg" alt="" class="thum-img"></a></span>
+							</div>
+						</li>
+						<li class="list-item" role="listitem" data-index="3">
+							<div class="prd-card">
+								<span class="prd-img"><a href=""><img src="https://images-na.ssl-images-amazon.com/images/I/41KuenPoJVL._AC_SY400_.jpg" alt="" class="thum-img"></a></span>
+							</div>
+						</li>
+						<li class="list-item" role="listitem" data-index="4">
+							<div class="prd-card">
+								<span class="prd-img"><a href=""><img src="https://images-na.ssl-images-amazon.com/images/I/414iZZChlmL._AC_SY400_.jpg" alt="" class="thum-img"></a></span>
+							</div>
+						</li>
+						<li class="list-item" role="listitem" data-index="5">
+							<div class="prd-card">
+								<span class="prd-img"><a href=""><img src="https://images-na.ssl-images-amazon.com/images/I/41LJIbxrvjL._AC_SY400_.jpg" alt="" class="thum-img"></a></span>
+							</div>
+						</li>
+						<li class="list-item" role="listitem" data-index="6">
+							<div class="prd-card">
+								<span class="prd-img"><a href=""><img src="https://images-na.ssl-images-amazon.com/images/I/41UwzP2BZPL._AC_SY400_.jpg" alt="" class="thum-img"></a></span>
+							</div>
+						</li>
+						<li class="list-item" role="listitem" data-index="7">
+							<div class="prd-card">
+								<span class="prd-img"><a href=""><img src="https://images-na.ssl-images-amazon.com/images/I/41Zf%2Ba1jgUL._AC_SY400_.jpg" alt="" class="thum-img"></a></span>
+							</div>
+						</li>
+						<li class="list-item" role="listitem" data-index="8">
+							<div class="prd-card">
+								<span class="prd-img"><a href=""><img src="https://images-na.ssl-images-amazon.com/images/I/31v2fOd0XxL._AC_SY400_.jpg" alt="" class="thum-img"></a></span>
+							</div>
+						</li>
+						<li class="list-item" role="listitem" data-index="9">
+							<div class="prd-card">
+								<span class="prd-img"><a href=""><img src="https://images-na.ssl-images-amazon.com/images/I/416MG9KZE0L._AC_SY400_.jpg" alt="" class="thum-img"></a></span>
+							</div>
+						</li>
+						<li class="list-item" role="listitem" data-index="10">
+							<div class="prd-card">
+								<span class="prd-img"><a href=""><img src="https://images-na.ssl-images-amazon.com/images/I/41MJgIxHdRL._AC_SY400_.jpg" alt="" class="thum-img"></a></span>
+							</div>
+						</li>
+
+						<li class="list-item" role="listitem" data-index="11">
+							<div class="prd-card">
+								<span class="prd-img"><a href=""><img src="https://images-na.ssl-images-amazon.com/images/I/41Zf%2Ba1jgUL._AC_SY400_.jpg" alt="" class="thum-img"></a></span>
+							</div>
+						</li>
+						<li class="list-item" role="listitem" data-index="12">
+							<div class="prd-card">
+								<span class="prd-img"><a href=""><img src="https://images-na.ssl-images-amazon.com/images/I/31v2fOd0XxL._AC_SY400_.jpg" alt="" class="thum-img"></a></span>
+							</div>
+						</li>
+						
+						<li class="list-item" role="listitem" data-index="13">
+							<div class="prd-card">
+								<span class="prd-img"><a href=""><img src="https://images-na.ssl-images-amazon.com/images/I/416MG9KZE0L._AC_SY400_.jpg" alt="" class="thum-img"></a></span>
+							</div>
+						</li>
+						<li class="list-item" role="listitem" data-index="14">
+							<div class="prd-card">
+								<span class="prd-img"><a href=""><img src="https://images-na.ssl-images-amazon.com/images/I/41MJgIxHdRL._AC_SY400_.jpg" alt="" class="thum-img"></a></span>
+							</div>
+						</li>
+						<li class="list-item" role="listitem" data-index="15">
+							<div class="prd-card">
+								<span class="prd-img"><a href=""><img src="https://images-na.ssl-images-amazon.com/images/I/41MJgIxHdRL._AC_SY400_.jpg" alt="" class="thum-img"></a></span>
+							</div>
+						</li>
+					
+					</ul>
+
+
+				</div>
+			</div>
+
+			<!-- control -->
+			<div id="buttons" class="control-section">
+
+				<button class="btn-prev" type="button" data-hidden="true" onclick="fn_prev();"><span>prev</span></button>
+				<button class="btn-next" type="button" data-hidden="true" onclick="fn_next();"><span>next</span></button>
+				<button class="btn-first" type="button" data-hidden="true" onclick="fn_first();">first</button>
+
+			</div>
+
+		</div>
+	</div>
+	
+	<script>
+
+		/*
+		var obj = {
+			width: 0,
+			current: 0,
+			length: 0, 
+			function : getWidth() {
+				return this.width + 'px';
+			}
+		};
+		*/
+		// window.addEventListener('', function() )
+
+		window.onload = function() {
+				
+			sumWidth();
+			paging();
+			fn_button();
+
+		}
+
+
+		var obj = {
+			viewWidth: 1300,
+			width: 0,
+			current: 0,
+			length: 0,
+			paging: 1,
+			currentPaging:1
+		};
+
+		
+		//global 
+		var ulPrdList = document.getElementById("ul-prd-list");
+		var elButtons = document.getElementById("buttons");
+		var prevButton = elButtons.getElementsByTagName("button")[0];
+		var nextButton = elButtons.getElementsByTagName("button")[1];
+		var firstButton = elButtons.getElementsByTagName("button")[2];
+		
+		//sumwidth	
+		function sumWidth() {
+
+			var elLi = document.querySelectorAll(".list-item");
+			var elLiCount = elLi.length;
+
+			
+			var x = 0; 
+			var y = 0;
+			
+			for (var i = 0; i < elLiCount; i++) {
+				
+				 x =  elLi[i].offsetWidth + 20;
+				 y = x + y;
+
+				
+			}
+			
+			// obj 객체에 담기 
+			obj.length = elLiCount;
+			obj.width = y;
+
+			//console.log("obj.width: " + obj.width);
+			//console.log("obj.length: " + obj.length);
+
+			ulPrdList.style.width = y + "px"; 
+
+			//size;
+			ulPrdList.setAttribute("data-size", obj.length );
+		}
+
+
+		//paging
+		function paging(){
+
+			var paging = Math.ceil( obj.width / obj.viewWidth);
+			console.log ("paging: " + paging);
+
+			// ulPrdList.setAttribute("data-paing", paging);
+
+			obj.paging = paging;
+
+			return false;
+
+		}
+
+		//button setting
+		function fn_button(){
+
+			if( obj.length > 4){
+
+					nextButton.setAttribute("data-hidden", false);
+
+			}
+
+			console.log(prevButton);
+
+		}
+
+		
+
+		//first 
+		function fn_first(){
+			console.log("first");
+
+			obj.currentPaging = 1;
+			setCurrent( obj.currentPaging );
+
+			nextButton.setAttribute("data-hidden", false);
+			prevButton.setAttribute("data-hidden", true);
+			firstButton.setAttribute("data-hidden", true);
+
+			return false;
+
+		}
+
+		//next
+		function fn_next(){
+			
+			console.log("next");
+			
+			obj.currentPaging = obj.currentPaging + 1;
+
+			prevButton.setAttribute("data-hidden", false);
+
+
+			if ( obj.currentPaging >= obj.paging ){
+
+				//obj.currentPaging = 1;
+
+				nextButton.setAttribute("data-hidden", true);
+				firstButton.setAttribute("data-hidden", false);
+
+
+			}
+
+			setCurrent( obj.currentPaging );
+
+		}
+
+
+		//prev
+		function fn_prev(){
+			
+			console.log("prev");
+
+			obj.currentPaging = obj.currentPaging - 1;
+
+			firstButton.setAttribute("data-hidden", true);
+			nextButton.setAttribute("data-hidden", false);
+
+			if ( obj.currentPaging == 1 ){
+
+				//obj.currentPaging = 1;
+				prevButton.setAttribute("data-hidden", true);
+			}
+
+			setCurrent( obj.currentPaging );
+
+		}	
+
+
+		//setCurrent 
+		function setCurrent(idx){
+
+			
+			ulPrdList.setAttribute("data-page", idx );
+
+			return false;
+		}
+
+
+		/*
+		function fn_next(){
+
+			console.log("next - event on");
+
+			var width2 = obj.width - obj.viewWidth; 
+			
+			obj.current = obj.paging + 1 ;
+			
+			console.log(" obj.paging - " + obj.paging);
+			console.log(" obj.current - " + obj.current);
+
+
+			if ( width2 < 1480 ){
+
+				ulPrdList.style.marginLeft = "-"+ width2 + "px";
+				ulPrdList.setAttribute("data-page", obj.current );
+
+
+				return false;
+
+			} else {
+
+				console.log(" 여기서부터 다시 ");
+				
+
+				if ( obj.current == 2){
+					console.log(" 2222 ");
+					ulPrdList.style.marginLeft = "-500px";
+					ulPrdList.setAttribute("data-page", obj.current );
+
+
+					return false;
+				
+				}else{
+
+
+					console.log(" 3333 ");
+
+
+					var width3 = obj.width - 500; 
+					
+					ulPrdList.style.marginLeft = "-"+ width3 + "px";
+					ulPrdList.setAttribute("data-page", obj.current );
+
+					return false;
+
+				
+				}
+	
+
+			}
+
+
+
+			//ulPrdList.setAttribute("data-page", obj.current );
+
+
+			
+
+		}
+		*/
+
+
+
+
+	</script>
+	
+
+</body>
+</html>
