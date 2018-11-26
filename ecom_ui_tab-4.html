@@ -357,8 +357,63 @@
        </div>
 
     </div>
+
+    <div id="xxx">xxxx</div>
+
+	<script>
+		xxx.onclick = function() {
+			alert('ok');
+		};
+	</script>
+
 	
 	<script>
+
+		var cc = {
+			current: 1,
+			length: 0,
+			count: 0, 
+			tabs: tabs111,
+			items: '',
+			_init: function() {
+				this.items = document.getElementsByClassName('');
+				this.length = this.items.length;
+			},
+			_next: function() {
+				if( this.tabs === '' ) {
+					this._init(); 
+				}
+
+				this.current = fn_next(this.current, this.length); 
+
+				// setTabsCurrent(this.current);			
+
+				tabs.setAttribute('data-current', this.current);	
+			}, 
+			_prev: function() {
+				this._init();
+
+				this.current = fn_prev(this.current, this.length); 
+
+				setTabsCurrent(this.current);				
+			}
+		};
+
+
+
+		// function cc() {
+		// 	var tabs; 
+		// 	var items; 
+		// 	var len; 
+		// 	var nextIndex; 
+
+		// 	tabs = document.getElementById('');
+		// 	items = document.getElementsByClassName('');
+		// 	len = items.length;
+		// 	nextIndex = fn_next(idx, len); 
+
+		// 	setTabsCurrent(nextIndex);
+		// }
 
 		var obj = {
 			
@@ -373,17 +428,19 @@
 		obj.count = elTab.length;
 		
 		// next
-		function fn_next(){
+		function fn_next(current, len){
 
-			obj.current = obj.current + 1;
+			current = current + 1;
 
-			if ( obj.current > obj.count){
+			if ( current > len){
 
-					obj.current = 1;
+					current = 1;
 
 			}
 
-			setTabsCurrent(obj.current);
+			return current;
+
+			// setTabsCurrent(obj.current);
 
 		}
 

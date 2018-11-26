@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>tab-3  </title>
+	 <style>
+
+	 	body{
+			font-family: "맑은 고딕", sans-serif;
+			font-size: 14px;
+			line-height: 1.2;
+		}
+		body, div, span, img, ul, li, a{ margin: 0; padding: 0; box-sizing: border-box;}
+		ul, li{ list-style: none; }
+
+    a { text-decoration: none; color: #666;}
+
+    .comp-tabs{ 
+    	position: relative;
+    	margin: 0 auto;
+    	border-top: 1px solid #ddd;
+    }
+    .comp-tabs .tabs-inner{
+        /*position: relative;
+        width: 620px;
+        margin: 0 20px;
+        border: 1px solid #ddd;
+        overflow: hidden;
+        background-color: #fff;
+        */
+    }
+
+    .tabs-list{
+    	position: relative;
+    	 /*width: 672px;*/
+    	 /*background-color: red; */
+    	 overflow: hidden;
+    	 border-left: 1px solid #ddd;
+    	 /*
+         overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+        */
+    }
+
+    .tabs-list::-webkit-scrollbar {
+        display: none;
+    }
+
+    .comp-tabs .tabs-list:before{
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 42x;
+        width: 20px;
+        background:-webkit-gradient(linear,left top,right top,color-stop(16.66%,#fff),color-stop(100%,rgba(255,255,255,0)));
+    }
+
+    .comp-tabs .tabs-list:after{
+        content: "";
+        display: block;
+        position: absolute;
+        height: 42px;
+        width: 20px;
+        top: 0;
+        right: 0;
+        background: -webkit-gradient(linear,left top,right top,color-stop(0,rgba(255,255,255,0)),color-stop(60%,#fff));
+    }
+
+    
+
+    .ul-tabs{
+        width: 1400px;
+        overflow: hidden;
+     }
+    
+    
+    /* .ul-tabs .tabs-item[data-selected="true"] { border-bottom: 2px solid orange; }*/
+
+    .tabs-control{
+        text-align: right;
+        margin: 10px 20px;
+    }
+    .btn{
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-top: 0;
+        padding: 12px 10px;
+        cursor: pointer;
+    }
+
+      .comp-tabs .btn-pre{ 
+        position: absolute;
+        right: 38px;
+        top: 0;
+      }
+
+      .comp-tabs .btn-next{ 
+        position: absolute;
+        right: -1px;
+        top: 0;
+      }
+
+      .btn-top{
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+      }
+
+      .ul-tabs .tabs-item{
+        float: left;
+        width: auto;
+      }
+
+      .ul-tabs .tabs-item a{
+        display: block;
+        padding: 10px 0;
+        margin: 0 10px;
+      }
+
+      .tabs-panel{
+        width: 100%;
+        height: 300px;
+        line-height: 300px;
+        text-align: center;
+        background-color: #ccc;
+        color: #000;
+      }
+
+      .tabs-panel[data-display=true]{ display: block; }
+      .tabs-panel[data-display=false]{ display: none; }
+
+      h2{ text-align: center; }
+
+
+     /* scrpt */
+     
+     /* move */
+     .ul-tabs{
+     	transition-duration: 1s;
+     }
+
+     .comp-tabs[data-type="A"]{
+      width: 738px;
+
+    }
+    .comp-tabs[data-type="A"] .tabs-list{
+      width: 672px;
+    }  
+
+
+     .comp-tabs[data-type="A"][data-current="1"] .ul-tabs{ margin-left: 10px; }
+     .comp-tabs[data-type="A"][data-current="2"] .ul-tabs{ margin-left: 10px; }
+     .comp-tabs[data-type="A"][data-current="3"] .ul-tabs{ margin-left: -79.5px; }
+     .comp-tabs[data-type="A"][data-current="4"] .ul-tabs{ margin-left: -159px; }
+     .comp-tabs[data-type="A"][data-current="5"] .ul-tabs{ margin-left: -238.5px; }
+     .comp-tabs[data-type="A"][data-current="6"] .ul-tabs{ margin-left: -318px; }
+		 .comp-tabs[data-type="A"][data-current="7"] .ul-tabs{ margin-left: -397.5px; }
+		 .comp-tabs[data-type="A"][data-current="8"] .ul-tabs{ margin-left: -477px; }
+		 .comp-tabs[data-type="A"][data-current="9"] .ul-tabs{ margin-left: -556.5px; }
+		 .comp-tabs[data-type="A"][data-current="10"] .ul-tabs,
+		 .comp-tabs[data-type="A"][data-current="11"] .ul-tabs,
+		 .comp-tabs[data-type="A"][data-current="12"] .ul-tabs,
+		 .comp-tabs[data-type="A"][data-current="13"] .ul-tabs,
+		 .comp-tabs[data-type="A"][data-current="14"] .ul-tabs,
+		 .comp-tabs[data-type="A"][data-current="15"] .ul-tabs{ margin-left: -600px; }
+		
+		.comp-tabs[data-type="A"][data-current="1"] .tabs-item[data-index="1"],
+		.comp-tabs[data-type="A"][data-current="2"] .tabs-item[data-index="2"],
+		.comp-tabs[data-type="A"][data-current="3"] .tabs-item[data-index="3"],
+		.comp-tabs[data-type="A"][data-current="4"] .tabs-item[data-index="4"],
+		.comp-tabs[data-type="A"][data-current="5"] .tabs-item[data-index="5"],
+		.comp-tabs[data-type="A"][data-current="6"] .tabs-item[data-index="6"],
+		.comp-tabs[data-type="A"][data-current="7"] .tabs-item[data-index="7"],
+		.comp-tabs[data-type="A"][data-current="8"] .tabs-item[data-index="8"],
+		.comp-tabs[data-type="A"][data-current="9"] .tabs-item[data-index="9"],
+		.comp-tabs[data-type="A"][data-current="10"] .tabs-item[data-index="10"],
+		.comp-tabs[data-type="A"][data-current="11"] .tabs-item[data-index="11"],
+		.comp-tabs[data-type="A"][data-current="12"] .tabs-item[data-index="12"],
+		.comp-tabs[data-type="A"][data-current="13"] .tabs-item[data-index="13"],
+		.comp-tabs[data-type="A"][data-current="14"] .tabs-item[data-index="14"],
+		.comp-tabs[data-type="A"][data-current="15"] .tabs-item[data-index="15"]{	
+
+		  border-bottom: 2px solid orange; 
+
+		}
+
+		.comp-tabs .tabs-panel{ display: none; }
+		.comp-tabs[data-current="1"] .tabs-panel[data-index="1"],
+		.comp-tabs[data-current="2"] .tabs-panel[data-index="2"],
+		.comp-tabs[data-current="3"] .tabs-panel[data-index="3"],
+		.comp-tabs[data-current="4"] .tabs-panel[data-index="4"],
+		.comp-tabs[data-current="5"] .tabs-panel[data-index="5"],
+		.comp-tabs[data-current="6"] .tabs-panel[data-index="6"],
+		.comp-tabs[data-current="7"] .tabs-panel[data-index="7"],
+		.comp-tabs[data-current="8"] .tabs-panel[data-index="8"],
+		.comp-tabs[data-current="9"] .tabs-panel[data-index="9"],
+		.comp-tabs[data-current="10"] .tabs-panel[data-index="10"],
+		.comp-tabs[data-current="11"] .tabs-panel[data-index="11"],
+		.comp-tabs[data-current="12"] .tabs-panel[data-index="12"],
+		.comp-tabs[data-current="13"] .tabs-panel[data-index="13"],
+		.comp-tabs[data-current="14"] .tabs-panel[data-index="14"],
+		.comp-tabs[data-current="15"] .tabs-panel[data-index="15"]{
+			display: block;			
+		}
+
+</style>
+
+
+</head>
+<body>
+	<!-- note 
+	## naver - tab / tab-panel 방식 
+	## 설계방식 : 
+  변수에 데이타를 저장하고 함수를 할당하여 기능을 완성한다.
+
+  ## 사용기능 
+  1. data-current / data-size 로 
+	2. 이전 / 다음 기능 
+  3. 현재 current  값 가져오기 
+	3. 이전 : current - 1  
+	4. 다음 : current + 1
+  5. 공통함수 사용
+  6. 패턴 방식 
+  7. setTabCurrent function add 
+
+	-->	
+
+	<h2>Tab Type -- A </h2>
+    <div id="comp_tabs--1" class="comp-tabs" data-current="1" data-type="A">
+        <div class="tabs-inner">
+
+            <div class="tabs-list">
+                <ul id="ulTabs" class="ul-tabs">
+                    <li class="tabs-item" data-index="1"><a href="#" onclick="setTabsCurrent(cc, 1);">카테고리-1</a></li>
+                    <li class="tabs-item" data-index="2"><a href="#" onclick="setTabsCurrent(cc, 2);">카테고리-2</a></li>
+                    <li class="tabs-item" data-index="3"><a href="#" onclick="setTabsCurrent(cc, 3);">카테고리-3</a></li>
+                    <li class="tabs-item" data-index="4"><a href="#" onclick="setTabsCurrent(cc, 4);">카테고리-4</a></li>
+                    <li class="tabs-item" data-index="5"><a href="#" onclick="setTabsCurrent(cc, 5);">카테고리-5</a></li>
+                    <li class="tabs-item" data-index="6"><a href="#" onclick="setTabsCurrent(cc, 6);">카테고리-6</a></li>
+                    <li class="tabs-item" data-index="7"><a href="#" onclick="setTabsCurrent(cc, 7);">카테고리-7</a></li>
+                    <li class="tabs-item" data-index="8"><a href="#" onclick="setTabsCurrent(cc, 8);" >카테고리-8</a></li>
+                    <li class="tabs-item" data-index="9"><a href="#" onclick="setTabsCurrent(cc, 9);" >카테고리-9</a></li>
+                    <li class="tabs-item" data-index="10"><a href="#" onclick="setTabsCurrent(cc, 10);">카테고리-10</a></li>
+          					<li class="tabs-item" data-index="11"><a href="#" onclick="setTabsCurrent(cc, 11);">카테고리-11</a></li>
+          					<li class="tabs-item" data-index="12"><a href="#"  onclick="setTabsCurrent(cc, 12);">카테고리-12</a></li>
+          					<li class="tabs-item" data-index="13"><a href="#"  onclick="setTabsCurrent(cc, 13);">카테고리-13</a></li>
+          					<li class="tabs-item" data-index="14"><a href="#"  onclick="setTabsCurrent(cc, 14);">카테고리-14</a></li>
+          					<li class="tabs-item" data-index="15"><a href="#"  onclick="setTabsCurrent(cc, 15);">카테고리-15</a></li>
+                </ul>
+            </div>
+
+
+            <div class='tabs-panel' data-index="1" data-display="true">
+                <div class="tabs-cont">content--1</div>
+            </div>
+            <div class='tabs-panel' data-index="2" data-display="false">
+                <div class="tabs-cont">content--2</div>
+            </div>
+            <div class='tabs-panel' data-index="3" data-display="false">
+                <div class="tabs-cont">content--3</div>
+            </div>
+            <div class='tabs-panel' data-index="4" data-display="false">
+                <div class="tabs-cont">content--4</div>
+            </div>
+            <div class='tabs-panel' data-index="5" data-display="false">
+                <div class="tabs-cont">content--5</div>
+            </div>
+            <div class='tabs-panel' data-index="6" data-display="false">
+                <div class="tabs-cont">content--6</div>
+            </div>
+            <div class='tabs-panel' data-index="7" data-display="false">
+                <div class="tabs-cont">content--7</div>
+            </div>
+            <div class='tabs-panel' data-index="8" data-display="false">
+                <div class="tabs-cont">content--8</div>
+            </div>
+            <div class='tabs-panel' data-index="9" data-display="false">
+                <div class="tabs-cont">content--9</div>
+            </div>
+            <div class='tabs-panel' data-index="10" data-display="false">
+                <div class="tabs-cont">content--10</div>
+            </div>
+            <div class='tabs-panel' data-index="11" data-display="false">
+                <div class="tabs-cont">content--11</div>
+            </div>
+            <div class='tabs-panel' data-index="12" data-display="false">
+                <div class="tabs-cont">content--12</div>
+            </div>
+            <div class='tabs-panel' data-index="13" data-display="false">
+                <div class="tabs-cont">content--13</div>
+            </div>
+            <div class='tabs-panel' data-index="14" data-display="false">
+                <div class="tabs-cont">content--14</div>
+            </div>
+            <div class='tabs-panel' data-index="15" data-display="false">
+                <div class="tabs-cont">content--15</div>
+            </div>
+
+
+        </div>
+
+        <div class="tabs-control">
+            <button type="button" id="prev" class="btn btn-pre" onclick="cc._prev();"><span>이전</span></button>
+            <button type="button" id="next" class="btn btn-next" onclick="cc._next();"><span>다음</span></button>
+       </div>
+
+    </div>
+	
+	<script>
+
+    var cc = {
+      current : 1,
+      len: 0,
+      tabs: '',
+      items: '',
+      _init: function(){
+     
+        this.tabs = document.getElementById("comp_tabs--1");
+        this.current = Number(this.tabs.getAttribute("data-current"));
+        this.items = this.tabs.querySelectorAll(".tabs-item");
+        this.len = this.items.length;
+        
+      },
+      _next: function(){
+
+            this._init();
+
+            this.current = fn_next(this.current, this.len);
+
+            this.tabs.setAttribute("data-current", this.current);
+
+      },
+
+      _prev: function(){
+
+            this._init();
+
+            this.current = fn_prev(this.current, this.len);
+
+            this.tabs.setAttribute("data-current", this.current);
+
+      }
+    }
+</script>
+
+
+<style>
+  
+ .comp-tabs[data-type="B"]{
+      width: 538px;
+
+  }
+  .comp-tabs[data-type="B"] .tabs-list{
+    width: 458px;
+  }  
+
+
+ .comp-tabs[data-type="B"][data-current="1"] .ul-tabs{ margin-left: 10px; }
+ .comp-tabs[data-type="B"][data-current="2"] .ul-tabs{ margin-left: 10px; }
+ .comp-tabs[data-type="B"][data-current="3"] .ul-tabs{ margin-left: -79.5px; }
+ .comp-tabs[data-type="B"][data-current="4"] .ul-tabs{ margin-left: -159px; }
+ .comp-tabs[data-type="B"][data-current="5"] .ul-tabs{ margin-left: -238.5px; }
+ .comp-tabs[data-type="B"][data-current="6"] .ul-tabs{ margin-left: -318px; }
+ .comp-tabs[data-type="B"][data-current="7"] .ul-tabs{ margin-left: -397.5px; }
+ .comp-tabs[data-type="B"][data-current="8"] .ul-tabs{ margin-left: -477px; }
+ .comp-tabs[data-type="B"][data-current="9"] .ul-tabs{ margin-left: -556.5px; }
+ .comp-tabs[data-type="B"][data-current="10"] .ul-tabs{ margin-left: -635.5px;}
+ .comp-tabs[data-type="B"][data-current="11"] .ul-tabs{ margin-left: -700px;}
+ .comp-tabs[data-type="B"][data-current="12"] .ul-tabs{ margin-left: -779px; }
+ .comp-tabs[data-type="B"][data-current="13"] .ul-tabs,
+ .comp-tabs[data-type="B"][data-current="14"] .ul-tabs,
+ .comp-tabs[data-type="B"][data-current="15"] .ul-tabs{ margin-left: -814px; }
+  
+.comp-tabs[data-type="B"][data-current="1"] .tabs-item[data-index="1"],
+.comp-tabs[data-type="B"][data-current="2"] .tabs-item[data-index="2"],
+.comp-tabs[data-type="B"][data-current="3"] .tabs-item[data-index="3"],
+.comp-tabs[data-type="B"][data-current="4"] .tabs-item[data-index="4"],
+.comp-tabs[data-type="B"][data-current="5"] .tabs-item[data-index="5"],
+.comp-tabs[data-type="B"][data-current="6"] .tabs-item[data-index="6"],
+.comp-tabs[data-type="B"][data-current="7"] .tabs-item[data-index="7"],
+.comp-tabs[data-type="B"][data-current="8"] .tabs-item[data-index="8"],
+.comp-tabs[data-type="B"][data-current="9"] .tabs-item[data-index="9"],
+.comp-tabs[data-type="B"][data-current="10"] .tabs-item[data-index="10"],
+.comp-tabs[data-type="B"][data-current="11"] .tabs-item[data-index="11"],
+.comp-tabs[data-type="B"][data-current="12"] .tabs-item[data-index="12"],
+.comp-tabs[data-type="B"][data-current="13"] .tabs-item[data-index="13"],
+.comp-tabs[data-type="B"][data-current="14"] .tabs-item[data-index="14"],
+.comp-tabs[data-type="B"][data-current="15"] .tabs-item[data-index="15"]{ 
+
+  border-bottom: 2px solid red; 
+
+}
+
+</style>  
+
+<h2>Tab Type -- B </h2>
+    <div id="comp_tabs--2" class="comp-tabs" data-current="1" data-type="B">
+        <div class="tabs-inner">
+
+            <div class="tabs-list">
+                <ul id="ulTabs" class="ul-tabs">
+                    <li class="tabs-item" data-index="1"><a href="#" onclick="setTabsCurrent(cc2, 1);">카테고리-1</a></li>
+                    <li class="tabs-item" data-index="2"><a href="#" onclick="setTabsCurrent(cc2, 2);">카테고리-2</a></li>
+                    <li class="tabs-item" data-index="3"><a href="#" onclick="setTabsCurrent(cc2, 3);">카테고리-3</a></li>
+                    <li class="tabs-item" data-index="4"><a href="#" onclick="setTabsCurrent(cc2, 4);">카테고리-4</a></li>
+                    <li class="tabs-item" data-index="5"><a href="#" onclick="setTabsCurrent(cc2,5);">카테고리-5</a></li>
+                    <li class="tabs-item" data-index="6"><a href="#" onclick="setTabsCurrent(cc2,6);">카테고리-6</a></li>
+                    <li class="tabs-item" data-index="7"><a href="#" onclick="setTabsCurrent(cc2,7);">카테고리-7</a></li>
+                    <li class="tabs-item" data-index="8"><a href="#" onclick="setTabsCurrent(cc2,8);">카테고리-8</a></li>
+                    <li class="tabs-item" data-index="9"><a href="#" onclick="setTabsCurrent(cc2,9);">카테고리-9</a></li>
+                    <li class="tabs-item" data-index="10"><a href="#" onclick="setTabsCurrent(cc2,10);">카테고리-10</a></li>
+                    <li class="tabs-item" data-index="11"><a href="#" onclick="setTabsCurrent(cc2,11);">카테고리-11</a></li>
+                    <li class="tabs-item" data-index="12"><a href="#" onclick="setTabsCurrent(cc2,12);">카테고리-12</a></li>
+                    <li class="tabs-item" data-index="13"><a href="#" onclick="setTabsCurrent(cc2,13);">카테고리-13</a></li>
+                    <li class="tabs-item" data-index="14"><a href="#" onclick="setTabsCurrent(cc2,14);">카테고리-14</a></li>
+                    <li class="tabs-item" data-index="15"><a href="#" onclick="setTabsCurrent(cc2, 15);">카테고리-15</a></li>
+                 </ul>
+              </div>
+
+
+            <div class='tabs-panel' data-index="1" data-display="true">
+                <div class="tabs-cont">content--1</div>
+            </div>
+            <div class='tabs-panel' data-index="2" data-display="false">
+                <div class="tabs-cont">content--2</div>
+            </div>
+            <div class='tabs-panel' data-index="3" data-display="false">
+                <div class="tabs-cont">content--3</div>
+            </div>
+            <div class='tabs-panel' data-index="4" data-display="false">
+                <div class="tabs-cont">content--4</div>
+            </div>
+            <div class='tabs-panel' data-index="5" data-display="false">
+                <div class="tabs-cont">content--5</div>
+            </div>
+            <div class='tabs-panel' data-index="6" data-display="false">
+                <div class="tabs-cont">content--6</div>
+            </div>
+            <div class='tabs-panel' data-index="7" data-display="false">
+                <div class="tabs-cont">content--7</div>
+            </div>
+            <div class='tabs-panel' data-index="8" data-display="false">
+                <div class="tabs-cont">content--8</div>
+            </div>
+            <div class='tabs-panel' data-index="9" data-display="false">
+                <div class="tabs-cont">content--9</div>
+            </div>
+            <div class='tabs-panel' data-index="10" data-display="false">
+                <div class="tabs-cont">content--10</div>
+            </div>
+            <div class='tabs-panel' data-index="11" data-display="false">
+                <div class="tabs-cont">content--11</div>
+            </div>
+            <div class='tabs-panel' data-index="12" data-display="false">
+                <div class="tabs-cont">content--12</div>
+            </div>
+            <div class='tabs-panel' data-index="13" data-display="false">
+                <div class="tabs-cont">content--13</div>
+            </div>
+            <div class='tabs-panel' data-index="14" data-display="false">
+                <div class="tabs-cont">content--14</div>
+            </div>
+            <div class='tabs-panel' data-index="15" data-display="false">
+                <div class="tabs-cont">content--15</div>
+            </div>
+
+
+        </div>
+
+        <div class="tabs-control">
+            <button type="button" id="prev" class="btn btn-pre" onclick="cc2._prev();"><span>이전</span></button>
+            <button type="button" id="next" class="btn btn-next" onclick="cc2._next();"><span>다음</span></button>
+       </div>
+
+   </div>
+  
+  <script>
+
+    var cc2 = {
+      current : 1,
+      len: 0,
+      tabs: '',
+      items: '',
+      _init: function(){
+     
+        this.tabs = document.getElementById("comp_tabs--2");
+        this.current = Number(this.tabs.getAttribute("data-current"));
+        this.items = this.tabs.getElementsByClassName("tabs-item");
+        this.len = this.items.length;
+
+        
+      },
+      _next: function(){
+
+            this._init();
+
+            this.current = fn_next(this.current, this.len);
+
+            this.tabs.setAttribute("data-current", this.current);
+
+      },
+
+      _prev: function(){
+
+            this._init();
+
+            this.current = fn_prev(this.current, this.len);
+
+            this.tabs.setAttribute("data-current", this.current);
+
+      }
+
+    }
+
+ 
+  </script>
+
+
+
+	<script>	
+    // 공통함수. 
+	 
+    // next
+		function fn_next( current, len ){
+
+			current = current + 1;
+
+      //console.log(" current-next:" + current);
+
+			if ( current > len){
+
+					current = 1;
+
+			}
+
+			return current;
+
+		}
+
+		// prev
+		function fn_prev( current, len ){
+
+			current = current - 1;
+
+			if ( current <= 0){
+
+					current = len;
+
+			}
+
+			return current ;
+			
+
+		}
+
+    //setTabcurrent 
+   function setTabsCurrent(id, current){
+
+          id._init();
+
+          id.tabs.setAttribute("data-current", current);
+
+          return false;
+   }
+		
+	</script>
+</body>
+</html>

@@ -57,7 +57,7 @@
   letter-spacing: 0;
   word-spacing: normal;
   white-space: nowrap;
-  background: red;
+  
 		}
 		.tabs li{
 			    display: inline-block;
@@ -129,7 +129,59 @@
 			font-weight: 500;
   			color: #ef3f43;
 		}
+		
+		.box {
+		  position:relative;
+		  vertical-align: middle;
+		  color: #000;
+		  display: inline-block;
+		 /* height: 60px;
+		  line-height: 60px;
+		  */
 
+		  text-align: center;
+		  transition: 0.5s;
+		  padding: 20px 20px;
+		  cursor: pointer;
+		 /* border: 2px solid #0b7; */
+		  -webkit-transition:0.5s;
+		}
+
+		.box:hover {
+		  /* border: 2px solid rgba(0,160,80,0); */
+		  color: #000;
+		}
+
+		.box::before, .box::after {
+		  width: 100%;
+		  height:100%;
+		  z-index: 3;
+		  content:'';
+		  position: absolute;
+		  top:0;
+		  left:0;
+		  box-sizing: border-box;
+		  -webkit-transform: scale(0);
+		  transition: 0.5s;
+		}
+
+
+
+		.a::before {
+		  border-bottom: 3px solid orange;
+		  border-left: 0;
+		  -webkit-transform-origin: 0% 100%;
+		}
+
+		.a::after {
+		  border-top: 0;
+		  border-right: 0;
+		  -webkit-transform-origin: 50% 50%;
+		}
+
+		.box:hover::after, .box:hover::before {
+		  -webkit-transform: scale(1);
+		}
 	</style>
 </head>
 <body>
@@ -139,9 +191,13 @@
 
 			<div class="tabs">
 				<ul>
-					<li class="tab-item" data-on="false"  data-idx="1" onclick="showtab(this);"><a href="#">Tab--1</a></li>
-					<li class="tab-item" data-on="false"  data-idx="2" onclick="showtab(this);"><a href="#">Tab--2</a></li>
-					<li class="tab-item" data-on="false"  data-idx="3" onclick="showtab(this);"><a href="#">Tab--3</a></li>
+					<li class="tab-item" data-on="false"  data-idx="1" onclick="showtab(this);">
+						<div class="box a">Tab--1</div>
+					</li>
+					<li class="tab-item" data-on="false"  data-idx="2" onclick="showtab(this);"><div class="box a">Tab--2</div></li>
+					<li class="tab-item" data-on="false"  data-idx="3" onclick="showtab(this);">
+						<div class="box a">Tab--3</div>
+					</li>
 				</ul>
 			</div>
 			
