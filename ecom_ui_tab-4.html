@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=1100">
 	<title>tab-3  </title>
 	 <style>
 
@@ -174,7 +175,7 @@
 		.comp-tabs[data-current="14"] .tabs-item[data-index="14"],
 		.comp-tabs[data-current="15"] .tabs-item[data-index="15"]{	
 
-		  border-bottom: 2px solid orange; 
+		   border-bottom: 2px solid orange; 
 
 		}
 
@@ -194,6 +195,7 @@
 		.comp-tabs[data-current="13"] .tabs-panel[data-index="13"],
 		.comp-tabs[data-current="14"] .tabs-panel[data-index="14"],
 		.comp-tabs[data-current="15"] .tabs-panel[data-index="15"]{
+			
 			display: block;			
 		}
 
@@ -376,7 +378,7 @@
 			tabs: tabs111,
 			items: '',
 			_init: function() {
-				this.items = document.getElementsByClassName('');
+				this.items = this.tabs.querySelectorAll('.item');
 				this.length = this.items.length;
 			},
 			_next: function() {
@@ -388,7 +390,7 @@
 
 				// setTabsCurrent(this.current);			
 
-				tabs.setAttribute('data-current', this.current);	
+				this.tabs.setAttribute('data-current', this.current);	
 			}, 
 			_prev: function() {
 				this._init();

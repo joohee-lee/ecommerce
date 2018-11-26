@@ -60,7 +60,7 @@ a{ text-decoration: none; }
 
 .tabs li::before, .tabs li::after {
   position: absolute;
-  bottom: -2px;
+  bottom: -3px;
   left: 0;
   width: 100%;
   height:3px;
@@ -124,6 +124,11 @@ a{ text-decoration: none; }
     display: block;
 }
 
+.control {
+  margin-top: 10px;
+  text-align: center;
+}
+
 /*
 .square {
   background: darkturquoise;
@@ -180,8 +185,19 @@ a{ text-decoration: none; }
               tab-D content
         </div>
       </div>
+
   </div>
 </div>  
+
+<!-- control -->
+  <div class="control">
+      <button type="button" class="btn-prev" onclick="cc._prev();"><span>이전</span></button>
+      <button type="button" class="btn-next" onclick="cc._next();"><span>다음</span></button>
+      <button type="button" class="btn-play" onclick="fn_play();"><span>play</span></button>
+      <button type="button" class="btn-stop" onclick="fn_stop();"><span>stop</span></button>
+  </div>
+  
+
 
 <script>
   var cc = {
@@ -189,29 +205,116 @@ a{ text-decoration: none; }
       len: 0,
       tabs: '',
       items: '',
+      time: 2000,
       _init: function(){
      
         this.tabs = document.getElementById("comp_tabs--1");
         this.items = this.tabs.querySelectorAll(".item");
         this.len = this.items.length;
         
+      },
+
+      _next: function(){
+
+
+        this._init();
+        fn_next( this.tabs, this.current, this.len);
+
+        //this.current = fn_next( this.current, this.len);
+        //this.tabs.setAttribute("data-current", this.current);
+      },
+
+      _prev: function(){
+
+        this._init();
+        fn_prev( this.tabs, this.current, this.len);
+
+        //this.current = fn_prev( this.current, this.len);
+
+        //this.tabs.setAttribute("data-current", this.current);
       }
 
     }
 
+    //next
+    function fn_next( id, current, len){
+
+       console.log(id);
+
+       clearInterval(autorolling);
+
+       cc.current = current + 1;
+
+       if( cc.current > len) {
+
+          cc.current = 1;
+       }
+
+       //return current;
+
+        id.setAttribute("data-current", cc.current);
+
+        autorolling = setInterval(function(){ cc._next(); }, 2000);
+
+
+   }
+
+   //prev
+
+   function fn_prev( id, current, len ){
+
+       clearInterval(autorolling);
+
+       cc.current = current -1;
+
+       if( cc.current <= 0) {
+
+          cc.current = len;
+       }
+
+      // return current;
+
+      id.setAttribute("data-current", cc.current);
+
+      autorolling = setInterval(function(){ cc._next(); }, 2000);
+
+   }
+
    //setTabcurrent 
    function setTabsCurrent( id, current){
-          
-          console.log(id);
-          console.log(current);
 
+      clearInterval(autorolling);
 
-          id._init();
+      id._init();
 
-          id.tabs.setAttribute("data-current", current);
+      id.tabs.setAttribute("data-current", current);
 
-          return false;
+      autorolling = setInterval(function(){ cc._next(); }, 2000);
+
+  
    }
+
+  var autorolling = setInterval(function(){ cc._next(); }, 2000); 
+
+   //stop
+   function fn_stop(){
+
+      clearInterval(autorolling);
+
+      return false;
+   }
+
+   //play
+  
+   function fn_play(){
+
+      autorolling = setInterval(function(){ cc._next(); }, 2000);
+
+      return false;
+
+   }
+  
+
 </script>
 
 
