@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta name="viewport" content="width=device-width">
+	<meta charset="UTF-8">
+	<title>tab-ui-effect  </title>
+  <style>
+body{ 
+  font-family: "맑은 고딕", sans-serif;
+  font-size: 14px;
+  line-height: 1.2;
+
+}
+
+body, ul, li , dl, dd, div, p, span, a {
+margin: 0;
+padding: 0;
+}
+
+ul li{ list-style: none; }
+
+a{ text-decoration: none; }
+
+.tab-list{
+  
+  width: 640px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+
+}
+
+.tab-inner:after,
+.tabs ul:after{
+  content: '';
+  display: block;
+  clear: both;
+
+}
+
+
+.tabs ul{
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 3px solid #ddd;
+
+}
+
+
+.tabs ul:after{
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -3px;  
+  width: 25%;
+  border-bottom: 3px solid red;
+  transition: 0.5s;
+
+
+}
+
+.tabs li{
+  float: left;
+  position: relative;
+  width: 25%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+
+.tabs li a{
+  display: block;
+
+}
+
+.tab-list .tab-panel {
+   width: 500px;
+   height: 500px;
+   text-align : center;
+}
+
+/* script */
+.tab-list[data-current="1"] .item[data-index="1"] a,
+.tab-list[data-current="2"] .item[data-index="2"] a,
+.tab-list[data-current="3"] .item[data-index="3"] a,
+.tab-list[data-current="4"] .item[data-index="4"] a{
+  color: red;
+}
+
+.tab-list[data-current="1"] .tabs ul:after{
+    left: 0;
+}
+
+.tab-list[data-current="2"] .tabs ul:after{
+    left: 25%;
+}
+
+.tab-list[data-current="3"] .tabs ul:after{
+    left: 50%;
+}
+
+.tab-list[data-current="4"] .tabs ul:after{
+    left: 75%;
+}
+
+
+.tab-list .tab-panel { display: none; }
+
+.tab-list[data-current="1"] .tab-panel[data-index="1"],
+.tab-list[data-current="2"] .tab-panel[data-index="2"],
+.tab-list[data-current="3"] .tab-panel[data-index="3"],
+.tab-list[data-current="4"] .tab-panel[data-index="4"]{
+
+    display: block;
+}
+
+.control {
+  margin-top: 10px;
+  text-align: center;
+}
+
+ h2 { text-align: center; }
+  </style>
+</head>
+<body>
+  
+<!-- note -->
+<!--
+  ## http://www.lotte.com/main/viewMain.lotte?dpml_no=1&tracking=MH_CORNER_01
+  effect css 
+  # transition 
+
+-->
+<h2>Tab (effect) - 롯데몰 main -  tab ui</h2>
+
+<!-- tab markup -->
+<div  id="comp_tabs--1" class="tab-list" data-current="1" data-type="A">
+  <div class="tab-inner">
+      <div class="tabs">
+          <ul>
+            <li class="item" data-index="1"><a href="#" onclick="setTabsCurrent(cc, 1);">tabs-A</a></li>
+            <li class="item" data-index="2"><a href="#" onclick="setTabsCurrent(cc, 2);">tabs-B</a></li>
+            <li class="item" data-index="3"><a href="#" onclick="setTabsCurrent(cc, 3);">tabs-C</a></li>
+            <li class="item" data-index="4"><a href="#" onclick="setTabsCurrent(cc, 4);">tabs-D</a></li>
+          </ul>
+      </div> 
+      <div class="tab-panels">
+        <div class="tab-panel" data-index="1">
+              tab-A content
+        </div>
+        <div class="tab-panel" data-index="2">
+              tab-B content
+        </div>
+        <div class="tab-panel" data-index="3">
+              tab-C content
+        </div>
+        <div class="tab-panel" data-index="4">
+              tab-D content
+        </div>
+      </div>
+
+  </div>
+</div>  
+
+<!-- control -->
+  <div class="control">
+      <button type="button" class="btn-prev" onclick="cc._prev();"><span>이전</span></button>
+      <button type="button" class="btn-next" onclick="cc._next();"><span>다음</span></button>
+      <button type="button" class="btn-play" onclick="fn_play();"><span>play</span></button>
+      <button type="button" class="btn-stop" onclick="fn_stop();"><span>stop</span></button>
+  </div>
+
+
+
+<script>
+  var cc = {
+      current : 1,
+      len: 0,
+      tabs: '',
+      items: '',
+      time: 2000,
+      _init: function(){
+     
+        this.tabs = document.getElementById("comp_tabs--1");
+        this.items = this.tabs.querySelectorAll(".item");
+        this.len = this.items.length;
+        
+      },
+
+      _next: function(){
+
+
+        this._init();
+        fn_next( this.tabs, this.current, this.len);
+
+        //this.current = fn_next( this.current, this.len);
+        //this.tabs.setAttribute("data-current", this.current);
+      },
+
+      _prev: function(){
+
+        this._init();
+        fn_prev( this.tabs, this.current, this.len);
+
+        //this.current = fn_prev( this.current, this.len);
+
+        //this.tabs.setAttribute("data-current", this.current);
+      }
+
+    }
+
+    //next
+    function fn_next( id, current, len){
+
+       console.log(id);
+
+       clearInterval(autorolling);
+
+       cc.current = current + 1;
+
+       if( cc.current > len) {
+
+          cc.current = 1;
+       }
+
+       //return current;
+
+        id.setAttribute("data-current", cc.current);
+
+        autorolling = setInterval(function(){ cc._next(); }, 2000);
+
+
+   }
+
+   //prev
+
+   function fn_prev( id, current, len ){
+
+       clearInterval(autorolling);
+
+       cc.current = current -1;
+
+       if( cc.current <= 0) {
+
+          cc.current = len;
+       }
+
+      // return current;
+
+      id.setAttribute("data-current", cc.current);
+
+      autorolling = setInterval(function(){ cc._next(); }, 2000);
+
+   }
+
+   //setTabcurrent 
+   function setTabsCurrent( id, current){
+
+      clearInterval(autorolling);
+
+      id._init();
+
+      id.tabs.setAttribute("data-current", current);
+
+      autorolling = setInterval(function(){ cc._next(); }, 2000);
+
+  
+   }
+
+  var autorolling = setInterval(function(){ cc._next(); }, 2000); 
+
+   //stop
+   function fn_stop(){
+
+      clearInterval(autorolling);
+
+      return false;
+   }
+
+   //play
+  
+   function fn_play(){
+
+      autorolling = setInterval(function(){ cc._next(); }, 2000);
+
+      return false;
+
+   }
+  
+
+</script>
+
+
+</body>
+</html>
