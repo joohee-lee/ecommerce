@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta name="viewport" content="width=device-width">
+	<meta charset="UTF-8">
+	<title>실시간 랭킹</title>
+  <style>
+      body{ 
+        font-family: "맑은 고딕", sans-serif;
+        font-size: 14px;
+        line-height: 1.2;
+
+      }
+
+      body, ul, li , dl, dd, div, p, span, a {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      ul li{ list-style: none; }
+      a{ text-decoration: none; }
+      h2 { text-align: center; }
+
+
+      .div-rank{
+        
+        position: relative;
+        border: 1px solid #ddd;
+        width: 200px;
+        margin: 0 auto;
+      }
+
+      .div-rank .ul-list{ 
+          width:198px;
+          height: 30px;
+          overflow: hidden;
+          position: relative;
+
+          
+          
+       }
+
+      .div-rank .ul-list li{ 
+          
+          height: 30px;
+          line-height: 30px;
+          position: absolute;
+          transition-duration: 1s;
+
+          opacity:0;
+          /*
+          -webkit-transition: transform .3s ease-out;
+          -moz-transition: transform .3s ease-out;
+          -ms-transition: transform .3s ease-out;
+          -o-transition: transform .3s ease-out;
+          transition: transform .3s ease-out;
+
+          background-color:#fff;
+          -webkit-transform: translateY(28px);
+          -moz-transform: translateY(28px);
+          -ms-transform: translateY(28px);
+          -o-transform: translateY(28px);
+          transform: translateY(28px);
+          */
+
+           transform:rotateX(180deg);
+
+
+      }
+
+
+      .div-rank .ul-list li > span{
+          font-weight: bold;
+          margin-left: 10px;
+          color: green;
+      }
+
+      /* script */
+
+      .div-rank[data-current="1"] .item[data-index="1"],
+      .div-rank[data-current="2"] .item[data-index="2"],
+      .div-rank[data-current="3"] .item[data-index="3"],
+      .div-rank[data-current="4"] .item[data-index="4"],
+      .div-rank[data-current="5"] .item[data-index="5"],
+      .div-rank[data-current="6"] .item[data-index="6"],
+      .div-rank[data-current="7"] .item[data-index="7"],
+      .div-rank[data-current="8"] .item[data-index="8"],
+      .div-rank[data-current="9"] .item[data-index="9"],
+      .div-rank[data-current="10"] .item[data-index="10"]{
+        opacity:1;
+        /*
+        -webkit-transform: translateY(0px);
+        -moz-transform: translateY(0px);
+        -ms-transform: translateY(0px);
+        -o-transform: translateY(0px);
+        transform: translateY(0px);
+        */
+
+        transform:rotateX(360deg);
+
+      }
+
+  </style>
+</head>
+<body>
+  
+<!-- note -->
+<!--
+  ## http://www.lotte.com/main/viewMain.lotte?dpml_no=1&tracking=MH_CORNER_01
+  effect css 
+  # transition 
+
+-->
+<h2>실시간검색어--1 ( 2초 )</h2>
+
+
+<div id="comp-time-rank" class="div-rank" data-current="1">
+  <div class="div-inner">
+      
+      <ul class="ul-list">
+        <li class="item" data-index="1" data-selected="true"><span>1위</span> 실시간 검색어 1</li>
+        <li class="item" data-index="2" data-selected="false"><span>2위</span> 실시간 검색어 2</li>
+        <li class="item" data-index="3" data-selected="false"><span>3위</span> 실시간 검색어 3</li>
+        <li class="item" data-index="4" data-selected="false"><span>4위</span> 실시간 검색어 4</li>
+        <li class="item" data-index="5" data-selected="false"><span>5위</span> 실시간 검색어 5</li>
+        <li class="item" data-index="6" data-selected="false"><span>6위</span> 실시간 검색어 6</li>
+        <li class="item" data-index="7" data-selected="false"><span>7위</span> 실시간 검색어 7</li>
+        <li class="item" data-index="8" data-selected="false"><span>8위</span> 실시간 검색어 8</li>
+        <li class="item" data-index="9" data-selected="false"><span>9위</span> 실시간 검색어 9</li>
+        <li class="item" data-index="10" data-selected="false"><span>10위</span> 실시간 검색어 10</li>
+      </ul>
+  </div>
+</div>
+
+<!--
+<div class="">
+     <a href="#" onclick="fn_next('comp-time-rank');">다음</a>
+</div>
+-->
+
+<!-- tab markup -->
+<script>
+ var timer = setInterval( function(){ fn_next( 'comp-time-rank' ) }, 2000); 
+</script>
+
+
+<h2>실시간검색어--2 ( 3초 )</h2>
+<div id="comp-time-rank--2" class="div-rank" data-current="1">
+  <div class="div-inner">
+      
+      <ul class="ul-list">
+        <li class="item" data-index="1" data-selected="true"><span>1위</span> 실시간 검색어 1</li>
+        <li class="item" data-index="2" data-selected="false"><span>2위</span> 실시간 검색어 2</li>
+        <li class="item" data-index="3" data-selected="false"><span>3위</span> 실시간 검색어 3</li>
+        <li class="item" data-index="4" data-selected="false"><span>4위</span> 실시간 검색어 4</li>
+        <li class="item" data-index="5" data-selected="false"><span>5위</span> 실시간 검색어 5</li>
+        <li class="item" data-index="6" data-selected="false"><span>6위</span> 실시간 검색어 6</li>
+        <li class="item" data-index="7" data-selected="false"><span>7위</span> 실시간 검색어 7</li>
+        <li class="item" data-index="8" data-selected="false"><span>8위</span> 실시간 검색어 8</li>
+        <li class="item" data-index="9" data-selected="false"><span>9위</span> 실시간 검색어 9</li>
+        <li class="item" data-index="10" data-selected="false"><span>10위</span> 실시간 검색어 10</li>
+      </ul>
+  </div>
+</div>
+
+<!--
+<div class="">
+     <a href="#" onclick="fn_next('comp-time-rank');">다음</a>
+</div>
+-->
+
+<!-- tab markup -->
+<script>
+ var timer2 = setInterval( function(){ fn_next( 'comp-time-rank--2' ) }, 3000); 
+</script>
+
+
+<script>
+  /*
+  var obj = {
+    current: 1,
+    len: 0,
+    el: '',
+    elItems: ''
+  }
+  */
+
+  //setting
+  function fn_next(id){
+
+    var el = document.getElementById(id);
+    var elItems = el.querySelectorAll(".item");
+    var len = elItems.length;
+    var current = Number(el.getAttribute("data-current"));
+
+    current = current + 1;
+    /*
+    if ( obj.current > obj.len) {
+  
+        obj.current = 1;
+    }
+    */
+    // 삼항 연산자 
+    current = current > len ? 1 : current;
+
+    console.log( current );
+  
+    
+    el.setAttribute("data-current", current);
+
+    return false;
+   
+  }
+
+  
+</script>
+
+
+</body>
+</html>
