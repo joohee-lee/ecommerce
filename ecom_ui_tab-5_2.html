@@ -220,10 +220,16 @@ a{ text-decoration: none; }
 
        cc.current = current + 1;
 
+       /*
        if( cc.current > len) {
 
           cc.current = 1;
        }
+       */
+
+       // 삼항연산자 
+       cc.current =  cc.current > len ? 1 : cc.current ;
+  
 
        //return current;
 
@@ -242,12 +248,16 @@ a{ text-decoration: none; }
 
        cc.current = current -1;
 
-       
+       /*
        if( cc.current <= 0) {
 
           cc.current = len;
        }
-       
+       */
+
+       // 삼항연산자 
+       cc.current = cc.current <= 0 ? len : cc.current ;
+  
 
       // return current;
 
