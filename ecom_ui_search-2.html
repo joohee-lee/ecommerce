@@ -41,6 +41,8 @@
           
        }
 
+      
+
       .div-rank .ul-list li{ 
           
           height: 30px;
@@ -64,7 +66,7 @@
           transform: translateY(28px);
           */
 
-           transform:rotateX(180deg);
+         transform:rotateX(180deg);
 
 
       }
@@ -97,7 +99,7 @@
         transform: translateY(0px);
         */
 
-        transform:rotateX(360deg);
+       transform:rotateX(360deg); 
 
       }
 
@@ -176,6 +178,85 @@
 </script>
 
 
+<h2>실시간 검색어 -- 3</h2>
+
+<style>
+   .div-rank--2{
+        position: relative;
+        border: 1px solid #ddd;
+        width: 200px;
+        margin: 0 auto;
+      }
+
+      .div-rank--2 .ul-list{ 
+          width:198px;
+       }
+
+      .div-rank--2 .ul-list li{ 
+          position: relative;
+          height: 30px;
+          line-height: 30px;
+      }
+
+
+      .div-rank--2 .ul-list li > span{
+          font-weight: bold;
+          margin-left: 10px;
+          
+      }
+
+      /* script */
+      .div-rank--2[data-current="1"] .item[data-index="1"],
+      .div-rank--2[data-current="2"] .item[data-index="2"],
+      .div-rank--2[data-current="3"] .item[data-index="3"],
+      .div-rank--2[data-current="4"] .item[data-index="4"],
+      .div-rank--2[data-current="5"] .item[data-index="5"],
+      .div-rank--2[data-current="6"] .item[data-index="6"],
+      .div-rank--2[data-current="7"] .item[data-index="7"],
+      .div-rank--2[data-current="8"] .item[data-index="8"],
+      .div-rank--2[data-current="9"] .item[data-index="9"],
+      .div-rank--2[data-current="10"] .item[data-index="10"]{
+       /*
+        -webkit-transform: translateY(0px);
+        -moz-transform: translateY(0px);
+        -ms-transform: translateY(0px);
+        -o-transform: translateY(0px);
+        transform: translateY(0px);
+      */
+
+      -webkit-transition: transform .5s ease-out;
+        -moz-transition: transform .5s ease-out;
+        -ms-transition: transform .5s ease-out;
+        -o-transition: transform .5s ease-out;
+        transition: transform .5s ease-out;
+       
+         transform:rotateX(360deg);
+         
+         color: red;
+      }
+</style>
+<div id="comp-time-rank--3" class="div-rank--2" data-current="1">
+  <div class="div-inner">
+      
+      <ul class="ul-list">
+        <li class="item" data-index="1" data-selected="true"><span>1위</span> 실시간 검색어 1</li>
+        <li class="item" data-index="2" data-selected="false"><span>2위</span> 실시간 검색어 2</li>
+        <li class="item" data-index="3" data-selected="false"><span>3위</span> 실시간 검색어 3</li>
+        <li class="item" data-index="4" data-selected="false"><span>4위</span> 실시간 검색어 4</li>
+        <li class="item" data-index="5" data-selected="false"><span>5위</span> 실시간 검색어 5</li>
+        <li class="item" data-index="6" data-selected="false"><span>6위</span> 실시간 검색어 6</li>
+        <li class="item" data-index="7" data-selected="false"><span>7위</span> 실시간 검색어 7</li>
+        <li class="item" data-index="8" data-selected="false"><span>8위</span> 실시간 검색어 8</li>
+        <li class="item" data-index="9" data-selected="false"><span>9위</span> 실시간 검색어 9</li>
+        <li class="item" data-index="10" data-selected="false"><span>10위</span> 실시간 검색어 10</li>
+      </ul>
+  </div>
+</div>
+
+<script>
+ var timer3 = setInterval( function(){ fn_next( 'comp-time-rank--3' ) }, 3000); 
+</script>
+
 <script>
   /*
   var obj = {
@@ -202,7 +283,7 @@
     }
     */
     // 삼항 연산자 
-    current = current > len ? 1 : current;
+    current = (current > len) ? 1 : current;
 
     console.log( current );
   
@@ -213,6 +294,41 @@
    
   }
 
+
+/*
+  var lo = {
+    thisLocation: {},
+    fileName: '', 
+    className: '',
+    setFileName: function() {
+        var pathname = this.thisLocation.pathname; 
+        var arr = pathname.split('/'); 
+        var arrLenght = arr.length; 
+
+        this.fileName = arr[arrLenght-1]; 
+    },
+    getFileName: function() {
+        return this.fileName; 
+    }, 
+    setClassName: function() {
+        this.className = this.fileName.replace('.', '--'); 
+    },
+    getClassName: function() {
+        return className; 
+    }, 
+    setBodyClassName: function() {
+      document.body.className = this.className; 
+    }, 
+    init: function() {
+        this.thisLocation = window.location; 
+        this.setFileName(); 
+        this.setClassName(); 
+        this.setBodyClassName(); 
+    }
+};
+
+lo.init();
+*/
   
 </script>
 
