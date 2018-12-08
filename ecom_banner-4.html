@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>tab-1 -- show/hide </title>
+	<style>
+		body{ 
+			font-family: '맑은 고딕', 'Malgun Gothic', sans-serif ; 
+			font-size: 1;
+			line-height: 1.2;
+		}
+
+		body, div, p, ul, ol, p, li, dd, dt { margin: 0; padding: 0; }
+		ul li, ol li{ list-style: none }
+		div, dl, dt, dd, ul, li,  a, input { box-sizing: border-box;}
+
+
+		img{ 
+			display: block;
+			border: 0;
+
+		}
+		
+		
+		.slide{
+			width: 600px;
+			overflow: hidden;
+			margin: 0 auto;
+
+		}
+		.slide ul{
+			width: 3000px;
+			font-size: 0; /* inline- block 여백 버*/
+		}
+		.slide ul li{ 
+			display: inline-block;
+		}
+
+		.slide ul li img{ width: 600px; }
+		
+	</style>
+	
+</head>
+<body>
+	<!-- 
+
+		jquery 이용;
+		1. 이미지 롤링을 jquery 로 구현해본다. 
+		2. next(), prev(), setcurrent()
+		3. moveTo - marginleft 값으로 설정
+	   	4. function. autorolling - setInterval / stop - clearInterval
+		5. animation - jquery 
+
+	-->
+
+	<h3 style="text-align: center;">jQuery - 이미지 일반적인 롤링 </h3>
+	<div id="slide" class="slide">
+		<ul>
+			<li class="item"><img src="https://movie-phinf.pstatic.net/20181023_149/1540257458176aF9Eh_JPEG/movie_image.jpg?type=m665_443_2" alt=""></li>
+			<li class="item"><img src="https://movie-phinf.pstatic.net/20181023_34/154025745849933wY2_JPEG/movie_image.jpg?type=m665_443_2" alt=""></li>
+			<li class="item"><img src="https://movie-phinf.pstatic.net/20181023_241/1540257458669RW2Cq_JPEG/movie_image.jpg?type=m665_443_2" alt=""></li>
+			<li class="item"><img src="https://movie-phinf.pstatic.net/20181023_70/1540257458832Lpkt1_JPEG/movie_image.jpg?type=m665_443_2" alt=""></li>
+			<li class="item"><img src="https://movie-phinf.pstatic.net/20181023_281/154025745896670Lw2_JPEG/movie_image.jpg?type=m665_443_2" alt=""></li>
+		</ul>	
+		
+		
+		<div class="control">
+			
+			<button type="button" onclick="prev();">이전</button>
+			<button type="button" onclick="next();">다음</button>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+<!--
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script type="text/javascript">
+	
+		window.onload = function() { alert("첫번째 window.onload"); };
+		window.onload = function() { alert("두번째 window.onload"); };
+		$(document).ready(function() { alert("첫번째 ready()"); });
+		$(document).ready(function() { alert("두번째 ready()"); });
+		
+	</script>
+
+-->
+
+<script>
+	
+	//var el = document.getElementById("slide");
+	//console.log(el);
+
+	var current = 0;
+	var leng = 0;
+	var el;
+	var elUl;
+	var elW = 600 ;
+
+
+	function init(){
+
+		 console.log("로드")
+
+		 el = $(".slide");
+		 elUl = $(".slide ul");
+		 leng = $(".slide li").length;
+
+		 console.log( leng );
+
+
+	}
+
+	function next(){
+
+		console.log( " next")
+
+		current = current + 1;
+		if( current > leng-1){
+			current =0;
+		}
+
+		//current setting
+		setCurrent(current);
+
+	}
+
+	function prev(){
+
+		current = current - 1;
+		if(current < 0){
+
+			current = leng-1;
+		}
+
+		//current setting
+		setCurrent(current);
+
+	}
+
+	function setCurrent(current){
+
+		//marginLeft 로 move
+		var moveTo = elW * current ;
+
+		console.log(moveTo);
+
+		//elUl.css( "margin-left", "-"+ moveTo + "px" );
+		
+
+		/* jquery ani 
+		elUl.animate({
+   	    	marginLeft: "-"+ moveTo + "px"
+		}, 1000 );	
+		*/
+		
+		/* TweenMax ani */
+		TweenMax.to( elUl , 0.8, { marginLeft: "-"+ moveTo + "px", ease : Expo.easeOut});
+	}
+
+
+	/*
+		function setCurrent(current){
+
+			var moveTo = elW * current ;
+
+			console.log(moveTo);
+
+		
+			elUl.animate({
+	   	    	marginLeft: "-"+ moveTo + "px"
+			}, 1000 );	
+
+			return false;
+
+		}
+	*/
+
+
+	var autorolling = setInterval(function(){  next() }, 2000);
+
+
+(function(){
+
+	$( document ).ready( init );
+
+
+})();
+	
+
+</script>
+	
+
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>tab-1 -- show/hide </title>
+	<style>
+		body{ 
+			font-family: '맑은 고딕', 'Malgun Gothic', sans-serif ; 
+			font-size: 1;
+			line-height: 1.2;
+		}
+
+		body, div, p, ul, ol, p, li, dd, dt { margin: 0; padding: 0; }
+		ul li, ol li{ list-style: none }
+		div, dl, dt, dd, ul, li,  a, input { box-sizing: border-box;}
+
+
+		img{ 
+			display: block;
+			border: 0;
+
+		}
+		
+		
+		.slide{
+			width: 600px;
+			height: 300px;
+			overflow: hidden;
+			margin: 0 auto;
+
+		}
+		.slide ul{
+			width: 3000px;
+			font-size: 0; /* inline- block 여백 버*/
+		}
+		.slide ul li{ 
+			height: 300px;
+			display: inline-block;
+		}
+
+		.slide ul li img{ width: 600px; }
+
+		.comp-slide .paging{
+			text-align: center;
+		}
+		.comp-slide a{ 
+			display: inline-block;
+			padding: 0 2px;
+			text-decoration: none; 
+			font-weight: bold; 
+		}
+		
+		/*
+		.comp-slide[data-current="0"] .item[data-index="0"],
+		.comp-slide[data-current="1"] .item[data-index="1"],
+		.comp-slide[data-current="2"] .item[data-index="2"],
+		.comp-slide[data-current="3"] .item[data-index="3"],
+		.comp-slide[data-current="4"] .item[data-index="4"]{ 
+			
+			display: block;
+		}
+		*/
+		
+		.comp-slide[data-current="0"] .paging a[data-index="0"],
+		.comp-slide[data-current="1"] .paging a[data-index="1"],
+		.comp-slide[data-current="2"] .paging a[data-index="2"],
+		.comp-slide[data-current="3"] .paging a[data-index="3"],
+		.comp-slide[data-current="4"] .paging a[data-index="4"]{ 
+			
+			font-weight: bold;
+			color: red;
+		}
+		
+	</style>
+	
+</head>
+<body>
+	<!-- 
+
+		jquery 이용;
+		1. 이미지 롤링을 jquery 로 구현해본다. 
+		2. next(), prev(), setcurrent()
+		3. moveTo - marginleft 값으로 설정
+	   	4. function. autorolling - setInterval / stop - clearInterval
+		5. animation - jquery
+		6. animation - TweenMax.min.js 
+		7. 이벤트  바인딩은 inline 방식  
+
+	-->
+
+	<h3 style="text-align: center;">jQuery - 이미지 무한 롤링 </h3>
+
+	<div id="comp-slide" class="comp-slide" data-current="0">
+	
+		<div id="slide" class="slide">
+			<ul>
+				<li class="item" data-index="0"><img src="https://movie-phinf.pstatic.net/20181023_149/1540257458176aF9Eh_JPEG/movie_image.jpg?type=m665_443_2" alt=""></li>
+				<li class="item" data-index="1"><img src="https://movie-phinf.pstatic.net/20181023_34/154025745849933wY2_JPEG/movie_image.jpg?type=m665_443_2" alt=""></li>
+				<li class="item" data-index="2"><img src="https://movie-phinf.pstatic.net/20181023_241/1540257458669RW2Cq_JPEG/movie_image.jpg?type=m665_443_2" alt=""></li>
+				<li class="item" data-index="3"><img src="https://movie-phinf.pstatic.net/20181023_70/1540257458832Lpkt1_JPEG/movie_image.jpg?type=m665_443_2" alt=""></li>
+				<li class="item" data-index="4"><img src="https://movie-phinf.pstatic.net/20181023_281/154025745896670Lw2_JPEG/movie_image.jpg?type=m665_443_2" alt=""></li>
+			</ul>	
+		</div>
+
+		<div class="control">
+			<button type="button" class="btn-prev" onclick="prev();">이전</button>
+			<button type="button" class="btn-next" onclick="next();">다음</button>
+			<button type="button" class="btn-next" onclick="play();">play</button>
+			<button type="button" class="btn-next" onclick="stop();">stop</button>
+		</div>
+
+
+		<div class="paging">
+			<span><a href="#" data-index="0" onclick="setShow(this);">0</a></span>
+			<span><a href="#" data-index="1" onclick="setShow(this);">1</a></span>
+			<span><a href="#" data-index="2" onclick="setShow(this);">2</a></span>
+			<span><a href="#" data-index="3" onclick="setShow(this);">3</a></span>
+			<span><a href="#" data-index="4" onclick="setShow(this);">4</a></span>
+			
+		</div>
+
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<!-- TweenMax -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+<!--
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script type="text/javascript">
+	
+		window.onload = function() { alert("첫번째 window.onload"); };
+		window.onload = function() { alert("두번째 window.onload"); };
+		$(document).ready(function() { alert("첫번째 ready()"); });
+		$(document).ready(function() { alert("두번째 ready()"); });
+		
+	</script>
+
+-->
+
+<script>
+	
+	var current = 0;
+	var leng = 0;
+	var elComp;
+	var el;
+	var elUl;
+	var elW = 600 ;
+
+
+	function init(){
+
+		 console.log("로드")
+
+		 
+		 elComp = document.getElementById("comp-slide");
+		 el = $(".slide");
+		 elUl = $(".slide ul");
+		 leng = $(".slide li").length;
+
+
+		 // 무한 롤링 추가 조건
+		 elUl.css("margin-left", "-"+ elW + "px");
+		 elUl.prepend( elUl.children()[leng-1]);
+
+		 console.log( leng );
+		 console.log( elUl.children())
+	}
+
+	function next(){
+
+		console.log( "next")
+
+		current = current + 1;
+		if( current > leng-1){
+			current =0;
+		}
+
+		//current setting
+		setCurrent(current, "next");
+
+	}
+
+	function prev(){
+
+		current = current - 1;
+		
+		if(current < 0){
+			current = leng-1;
+		}
+
+		//current setting
+		setCurrent(current, "prev");
+
+	}
+
+	
+
+
+	function setCurrent(current, $direc){
+
+		var moveTo = 600;
+
+		
+		clearInterval( autorolling );
+		
+		elComp.setAttribute("data-current", current);
+
+		if( $direc == "next"){
+
+				$(elUl.children()[1]).css("margin-left",  moveTo+"px");
+
+				// 자식노드 중에 첫번째 노드를 맨 마지막 노드로 이동 
+				elUl.append( elUl.children()[0]);
+
+				//animate
+				/*
+				$(elUl.children()[0]).animate({
+		   	    	marginLeft: 0
+				}, 600 );	
+				*/
+				TweenMax.to( elUl.children()[0] , 0.8, { marginLeft:0, ease : Expo.easeOut});
+				
+
+		}else if( $direc == "prev" ){
+
+				// 자식노드 중에  마지막노드를 맨 앞으로 노드 이동 
+				elUl.prepend( elUl.children()[leng-1]);
+
+				$(elUl.children()[0]).css("margin-left",  "-600px");
+
+				//animate
+				/*
+				$(elUl.children()[0]).animate({
+		   	    	marginLeft: 0
+				}, 600 );	
+				*/
+
+				TweenMax.to( elUl.children()[0] ,0.8, { marginLeft:0, ease : Expo.easeOut});
+
+		}
+
+
+		$('.item').css("display",  "");
+
+		autorolling = setInterval(function(){  next() }, 2000);
+
+	}
+
+
+	// paging show 
+	// 자동롤링을 기능을 멈추고  각각의 nav 를 data-index 값으로 item 을 찾아, display:none, block 으로 조정한다.
+	// 무한롤링기능은 다시 초기화 
+	/*
+	function setShow(el){
+
+		clearInterval( autorolling );
+
+		current =  el.getAttribute("data-index");
+		
+
+		elUl.css("margin-left", 0);
+		elComp.setAttribute("data-current", current);
+
+		
+
+		$('.item').css("display",  "none");
+		var elitem = $('.item[data-index ='+ current +']').css("display", "block");
+
+		console.log(elitem);
+
+		play();
+	}
+	*/
+	
+	function play(){
+
+		 autorolling = setInterval(function(){  next() }, 2000);
+
+	}
+
+	function stop(){
+
+		clearInterval( autorolling );
+	}
+
+	var autorolling = setInterval(function(){  next() }, 2000);
+
+
+(function(){
+
+	// 초기 셋팅 
+	$( document ).ready( init );
+
+
+})();
+	
+
+</script>
+	
+
+
+</body>
+</html>
